@@ -36,6 +36,9 @@ const AppKiosk: React.FC = () => {
   const handlePageClick = (pageIndex: number) => {
     setCurrentPage(pageIndex);
     handleUserActivity();
+    // Emit page change event for ChatbotIcon
+    const event = new CustomEvent('kioskPageChange', { detail: { pageIndex } });
+    window.dispatchEvent(event);
   };
 
   useEffect(() => {
@@ -47,6 +50,9 @@ const AppKiosk: React.FC = () => {
     const handleChatIconClick = (e: CustomEvent) => {
       setCurrentPage(e.detail.pageIndex);
       handleUserActivity();
+      // Emit page change event for ChatbotIcon
+      const pageChangeEvent = new CustomEvent('kioskPageChange', { detail: { pageIndex: e.detail.pageIndex } });
+      window.dispatchEvent(pageChangeEvent);
     };
     window.addEventListener('switchToChat', handleChatIconClick as EventListener);
 

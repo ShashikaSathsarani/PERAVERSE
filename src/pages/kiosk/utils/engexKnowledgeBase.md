@@ -3,9 +3,11 @@
 ## ABOUT ENGEX EXHIBITION
 
 ### What is EngEx?
+
 EngEx (Engineering Exhibition) is the flagship annual event organized by the Faculty of Engineering, University of Peradeniya. It showcases innovative engineering projects, research work, and technological advancements by undergraduate students from all engineering departments.
 
 ### Key Features:
+
 - Student project exhibitions from all 8 engineering departments
 - Industry partnerships and collaborations
 - Technical demonstrations and interactive displays
@@ -17,6 +19,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Hands-on workshops and seminars
 
 ### Exhibition Departments:
+
 1. **Civil Engineering** - Infrastructure, construction, and sustainable development projects
 2. **Mechanical Engineering** - Robotics, automation, and manufacturing innovations
 3. **Electrical & Electronic Engineering** - Power systems, electronics, and renewable energy
@@ -29,6 +32,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 ## UNIVERSITY OF PERADENIYA - FACULTY OF ENGINEERING
 
 ### History & Prestige:
+
 - **Founded in 1950** - The first and pioneer engineering faculty in Sri Lanka
 - **Shifted to current location in 1964** at Peradeniya campus
 - Located in Peradeniya, Kandy District, Central Province
@@ -40,6 +44,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Over 6000+ students** have graduated from this faculty
 
 ### Academic Programs:
+
 - **Undergraduate Programs**: 4-year Bachelor of Science in Engineering (BSc Eng)
 - **8 Engineering Disciplines** offered
 - **Postgraduate Programs**: MEng, MPhil, PhD in various specializations
@@ -47,7 +52,9 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Medium of instruction: English
 
 ### Campus Facilities:
+
 **Academic Buildings:**
+
 - Modern lecture halls and tutorial rooms
 - State-of-the-art laboratories for each department
 - Computer labs with latest software and hardware
@@ -56,6 +63,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Workshop facilities for practical training
 
 **Student Facilities:**
+
 - Multiple canteens and food courts
 - Sports complex with gym facilities
 - Student activity center
@@ -64,6 +72,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Bank and post office facilities
 
 **Specialized Centers:**
+
 - CAD/CAM Center
 - Robotics Lab
 - Renewable Energy Lab
@@ -73,6 +82,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Computing Center
 
 ### Location & Campus:
+
 - **Address**: Faculty of Engineering, University of Peradeniya, Peradeniya, Sri Lanka
 - **Campus Area**: Sprawling green campus in scenic Peradeniya
 - **Near Kandy**: About 5km from Kandy city center
@@ -80,7 +90,9 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - Well-connected by public transport
 
 ### Campus Map:
+
 **Important Buildings on Campus Map (Zones marked A-F):**
+
 - **Zone A**: Main academic area with lecture halls
 - **Zone B**: Building 1 (Chemical & Process Engineering)
 - **Zone C**: Buildings 8, 11, 12, 13 (Central academic buildings)
@@ -89,6 +101,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Zone F**: Building 25 area (Eastern section)
 
 **Key Locations (Building Numbers):**
+
 1. Department of Chemical and Process Engineering
 2. Engineering Mathematics Department/Computer Center
 3. Drawing Office 1
@@ -120,6 +133,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 29. Faculty Canteen
 
 **Entry/Exit Points:**
+
 - Main ENTER gate (bottom right on map)
 - EXIT points on left side and top right
 - Dedicated Foot Path on the right side
@@ -127,12 +141,14 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Note**: When visitors ask for a map or directions, direct them to the interactive Map page in the kiosk or show them the campus map image which displays all buildings, zones (A-F), pathways, and facilities clearly marked with the Faculty's 75th anniversary logo.
 
 ### Contact Information:
+
 - **Dean's Office**: +94 81 239 3302
 - **AR Office**: +94 81 239 3305
 - **Email**: deanoffice@eng.pdn.ac.lk
 - **Website**: https://eng.pdn.ac.lk/
 
 ### Notable Achievements:
+
 - Pioneer engineering faculty and consistently ranked #1 Engineering Faculty in Sri Lanka
 - **Nearly 100% employability** rate for graduates
 - Strong research output in international journals
@@ -148,14 +164,16 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Morning Session:**
 
 **09:00 AM - Registration and Welcome**
+
 - **Location**: Main Entrance Lobby, Ground Floor
 - **Route**: Enter through main gate → Follow "Registration" signs → Registration desk on right side of lobby
 - **What to expect**: Collect visitor badge, receive event brochure, get wristband
 
 **10:00 AM - Opening Ceremony**
+
 - **Location**: Main Auditorium, Central Building, Ground Floor
 - **Capacity**: 800 seats
-- **Route from Main Entrance**: 
+- **Route from Main Entrance**:
   1. Enter main lobby
   2. Walk straight through the corridor (50 meters)
   3. Turn left at the Faculty Office sign
@@ -166,6 +184,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Tips**: Arrive 15 minutes early for good seats
 
 **11:30 AM - Tech Innovation Showcase**
+
 - **Location**: Exhibition Hall A, East Wing, Ground Floor
 - **Route from Main Auditorium**:
   1. Exit auditorium and turn right
@@ -185,6 +204,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Afternoon Session:**
 
 **01:00 PM - Lunch Break**
+
 - **Main Canteen Location**: Ground Floor, Student Center Building (West Wing)
 - **Route from Exhibition Hall A**:
   1. Exit hall and turn left
@@ -197,6 +217,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Coffee Shop Location**: Library Building (behind main building)
 
 **02:00 PM - Student Project Presentations (Best Project Competition Finals)**
+
 - **Location**: Main Auditorium, Central Building, Ground Floor (Same as Opening Ceremony)
 - **Route from Main Canteen**:
   1. Exit Student Center
@@ -206,7 +227,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
   5. Auditorium on your right
   6. Total walk: ~3 minutes
 - **Route from Exhibition Halls**: Follow reverse route to main auditorium (~3-4 minutes)
-- **Program**: 
+- **Program**:
   - 5 finalist teams present (20 mins each)
   - Live demonstrations
   - Q&A sessions
@@ -214,6 +235,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Expected duration**: 2 hours
 
 **03:30 PM - Robotics Competition**
+
 - **Location**: Sports Ground, Behind Main Building
 - **Route from Main Auditorium**:
   1. Exit auditorium through rear exit
@@ -243,6 +265,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Evening Session:**
 
 **04:00 PM - Industry Panel Discussion: "Future of Engineering in Sri Lanka"**
+
 - **Location**: Conference Hall, Administrative Block, 2nd Floor
 - **Route from Sports Ground**:
   1. Return to main building
@@ -263,6 +286,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Duration**: 90 minutes with Q&A
 
 **05:30 PM - Awards Ceremony**
+
 - **Location**: Main Auditorium, Central Building, Ground Floor (Same as Opening & Presentations)
 - **Route from Conference Hall**:
   1. Exit Conference Hall
@@ -281,6 +305,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Duration**: ~1 hour
 
 **06:00 PM - Special Event: Drone Show**
+
 - **Location**: Front Lawn, Main Building
 - **Route from Main Auditorium**:
   1. Exit through main entrance
@@ -291,6 +316,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Note**: Weather permitting, outdoor event
 
 **06:30 PM - Networking Session**
+
 - **Location**: Exhibition Hall B, West Wing, Ground Floor
 - **Route from Front Lawn**:
   1. Re-enter main building
@@ -306,31 +332,37 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Open until**: 7:30 PM
 
 ### Exhibition Zones:
+
 **Zone A - Civil & Construction**
+
 - Building design models
 - Bridge engineering projects
 - Water resources management
 - Sustainable infrastructure
 
 **Zone B - Mechanical & Robotics**
+
 - Industrial automation
 - Robotics demonstrations
 - 3D printing displays
 - Manufacturing innovations
 
 **Zone C - Electrical & Electronics**
+
 - Power systems projects
 - Renewable energy displays
 - Smart grid technology
 - Electronic circuits and devices
 
 **Zone D - Computer & IT**
+
 - AI/ML applications
 - Mobile and web applications
 - IoT projects
 - Cybersecurity demos
 
 **Zone E - Chemical & Materials**
+
 - Process simulations
 - Materials testing displays
 - Chemical engineering innovations
@@ -341,6 +373,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Main Venues:**
 
 **1. Main Auditorium**
+
 - **Building**: Central Building, Ground Floor
 - **Capacity**: 800 seats
 - **Events**: Opening Ceremony (10 AM), Project Presentations (2 PM), Awards (5:30 PM)
@@ -354,6 +387,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Tips**: Arrive 15 minutes early for major events
 
 **2. Exhibition Hall A**
+
 - **Building**: East Wing, Ground Floor
 - **Size**: Large exhibition space
 - **Events**: Tech Innovation Showcase (11:30 AM), Main project displays
@@ -367,6 +401,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Facilities**: Information desk, Project displays, Interactive demos, Charging stations
 
 **3. Exhibition Hall B**
+
 - **Building**: West Wing, Ground Floor
 - **Events**: Department booths, Networking Session (6:30 PM)
 - **Route from Main Entrance**:
@@ -378,6 +413,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Features**: Department-specific booths, Career fair, Industry partner displays
 
 **4. Conference Hall**
+
 - **Building**: Administrative Block, 2nd Floor
 - **Capacity**: 200 seats
 - **Events**: Industry Panel Discussion (4 PM)
@@ -390,6 +426,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Facilities**: Projector, Sound system, AC, Seminar seating arrangement
 
 **5. Sports Ground**
+
 - **Location**: Behind Main Building, Outdoor area
 - **Events**: Robotics Competition (3:30 PM), Drone Show (6 PM viewing area)
 - **Route from Main Entrance**:
@@ -407,6 +444,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Food & Dining:**
 
 **Main Canteen**
+
 - **Location**: Ground Floor, Student Center Building, West Wing
 - **Hours**: 7:00 AM - 8:00 PM
 - **Route from Main Entrance**:
@@ -420,6 +458,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Payment**: Cash and cards accepted
 
 **Food Court**
+
 - **Location**: Near Exhibition Hall B, West Wing
 - **Hours**: 10:00 AM - 7:00 PM
 - **Route from Exhibition Hall B**: Adjacent area, follow signs
@@ -428,6 +467,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Best for**: Quick meals between events
 
 **Coffee Shop**
+
 - **Location**: Library Building (behind main building)
 - **Hours**: 8:00 AM - 6:00 PM
 - **Route from Main Entrance**:
@@ -439,6 +479,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Washroom Facilities:**
 
 **Ground Floor Washrooms**
+
 - **Location 1**: Near main entrance, right side of lobby
   - Route: Enter main entrance → Immediate right → Washrooms 10m ahead
 - **Location 2**: Near registration area
@@ -448,12 +489,14 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Facilities**: Male, Female, Accessible washrooms available
 
 **First Floor Washrooms**
+
 - **Location**: Next to elevators (both East and West wings)
   - East Wing: Take elevator/stairs up → Turn right from elevator → Washrooms 5m ahead
   - West Wing: Take elevator/stairs up → Turn left from elevator → Washrooms 5m ahead
 - **Access**: Via elevators or staircases in both wings
 
 **Second Floor Washrooms**
+
 - **Location**: Near Conference Hall and seminar rooms
   - Route: 2nd floor → From elevator turn left → Washrooms beside conference room
 - **Usage**: Primarily for conference/seminar attendees
@@ -463,22 +506,22 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 **Other Services:**
 
 **Information Desks**
+
 - **Main Information Desk**: Main Entrance Lobby
   - Route: Enter main entrance → Desk immediately visible in lobby center
   - Services: General inquiries, Maps, Lost & found, Event information
   - Staff available: 9 AM - 7 PM
-  
 - **Exhibition Hall A Desk**: Inside Exhibition Hall A
   - Route: Enter Hall A → Desk near entrance
   - Services: Project information, Department contacts, Technical queries
-  
 - **Exhibition Hall B Desk**: Inside Exhibition Hall B
   - Route: Enter Hall B → Desk at entrance
   - Services: Career fair info, Industry partner contacts, Booth locations
 
 **First Aid / Medical**
+
 - **Location**: Near Main Canteen, marked with Red Cross sign
-- **Route from Main Entrance**: 
+- **Route from Main Entrance**:
   - West Wing → Student Center → Medical room adjacent to canteen
   - Total: 4 minutes
 - **Route from Exhibition Halls**: Follow signs to canteen → Medical room nearby
@@ -487,38 +530,40 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Available**: 9 AM - 7 PM (Emergency 24/7)
 
 **Parking Facilities**
-- **Front Parking Lot**: 
+
+- **Front Parking Lot**:
   - Location: Main entrance area
   - Access: From main gate → First parking lot on right
   - Capacity: ~100 vehicles
   - Type: Open air parking
   - Distance to entrance: 50 meters walking
-  
 - **Rear Parking Lot**:
   - Location: Behind sports ground
   - Access: From main gate → Drive around building → Rear parking area
   - Capacity: ~80 vehicles
   - Distance to entrance: 100 meters walking
-  
-- **Parking Tips**: 
+- **Parking Tips**:
   - Arrive early (before 9:30 AM) for front lot spaces
   - Free parking for all visitors
   - Motorcycle/bicycle parking available
   - Public transport recommended (buses from Kandy every 15 mins)
 
 **ATM & Banking**
+
 - **Location**: Main Building, Ground Floor, near faculty office
 - **Route from Main Entrance**: Enter lobby → Turn left → ATM 20m ahead on right
 - **Banks**: Multiple banks available
 - **Services**: Cash withdrawal, Balance inquiry
 
 **Lost & Found**
+
 - **Location**: Main Information Desk, Entrance Lobby
 - **Route**: Main entrance → Information desk in lobby center
 - **Report**: Any lost items or found items
 - **Contact**: +94 81 239 3000
 
 ### Emergency Contacts:
+
 - **Event Coordinators**: +94 81 239 3000
 - **Technical Support**: +94 81 239 3001
 - **Campus Security**: +94 81 239 4914
@@ -529,30 +574,35 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 ### Visitor Information:
 
 **Entry & Registration:**
+
 - Free entry for all visitors
 - Online pre-registration available
 - On-site registration at main entrance
 - Visitor badges provided
 
 **What to Bring:**
+
 - Valid ID for registration
 - Comfortable walking shoes (large campus)
 - Notebook for sessions (optional)
 - Water bottle (refill stations available)
 
 **Parking:**
+
 - Free parking available
 - Limited spaces, arrive early
 - Public transport recommended
 - Tuk-tuks and buses available from Kandy
 
 **Photography:**
+
 - Photography allowed in exhibition areas
 - Video recording permitted
 - No flash in presentation halls
 - Tag #EngEx2025 on social media
 
 ### Special Attractions:
+
 - **VR/AR Demonstrations** - Experience virtual engineering
 - **Drone Show** - Evening performance at 6 PM
 - **3D Printing Live** - Watch prints being made
@@ -561,6 +611,7 @@ EngEx (Engineering Exhibition) is the flagship annual event organized by the Fac
 - **Career Fair** - Meet recruiters from top companies
 
 ### Social Media:
+
 - Twitter/X: @EngExPeradeniya
 - Instagram: @engex_peradeniya
 - Facebook: EngEx University of Peradeniya
@@ -596,45 +647,53 @@ A: Official program ends at 6:30 PM, networking continues till 7 PM.
 ## ENGINEERING DEPARTMENTS - DETAILED INFO
 
 ### Civil Engineering Department:
+
 - Focus: Infrastructure, structures, water resources, transportation
 - Notable Projects: Bridge designs, smart city concepts, disaster management
 - Career Paths: Construction companies, consultancies, government projects
 
 ### Mechanical Engineering Department:
+
 - Focus: Thermal systems, robotics, manufacturing, automation
 - Notable Projects: Industrial robots, energy systems, vehicle design
 - Career Paths: Automotive, aerospace, energy sector, R&D
 
 ### Electrical & Electronic Engineering:
+
 - Focus: Power systems, control systems, telecommunications, electronics
 - Notable Projects: Smart grid, renewable energy, embedded systems
 - Career Paths: Utilities, telecom, electronics industry, power sector
 
 ### Computer Engineering Department:
+
 - Focus: Software, AI/ML, networks, embedded systems
 - Notable Projects: AI applications, mobile apps, IoT, cybersecurity
 - Career Paths: Tech companies, software development, data science
 
 ### Chemical & Process Engineering:
+
 - Focus: Chemical processes, environmental engineering, biotechnology
 - Notable Projects: Green chemistry, waste treatment, bio-processes
 - Career Paths: Petrochemical, pharmaceuticals, environmental consulting
 
 ### Production Engineering:
+
 - Focus: Manufacturing, quality control, supply chain, operations
 - Notable Projects: Lean manufacturing, optimization, industrial systems
 - Career Paths: Manufacturing, logistics, quality assurance, consulting
 
 ### Materials Engineering:
+
 - Focus: Materials science, nanotechnology, composites, polymers
 - Notable Projects: Advanced materials, testing, material development
 - Career Paths: R&D, materials testing, manufacturing, aerospace
 
 ### Engineering Mathematics:
+
 - Focus: Computational methods, data science, mathematical modeling
 - Notable Projects: Algorithm development, simulations, data analytics
 - Career Paths: Data science, finance, research, software development
 
 ---
 
-*This knowledge base is continuously updated. For latest information, visit www.engex.pdn.ac.lk or contact event coordinators.*
+_This knowledge base is continuously updated. For latest information, visit www.engex.pdn.ac.lk or contact event coordinators._
