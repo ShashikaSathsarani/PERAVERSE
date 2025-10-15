@@ -43,6 +43,13 @@ const AppKiosk: React.FC = () => {
     const addEventListeners = () => events.forEach(event => document.addEventListener(event, handleUserActivity, true));
     const removeEventListeners = () => events.forEach(event => document.removeEventListener(event, handleUserActivity, true));
 
+    // Add listener for chat icon clicks
+    const handleChatIconClick = (e: CustomEvent) => {
+      setCurrentPage(e.detail.pageIndex);
+      handleUserActivity();
+    };
+    window.addEventListener('switchToChat', handleChatIconClick as EventListener);
+
     if (!showIntroVideo) {
       addEventListeners();
       handleUserActivity();
@@ -52,6 +59,7 @@ const AppKiosk: React.FC = () => {
     }
     return () => {
       removeEventListeners();
+      window.removeEventListener('switchToChat', handleChatIconClick as EventListener);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     };
   }, [showIntroVideo, handleUserActivity]);
