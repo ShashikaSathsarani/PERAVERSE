@@ -21,13 +21,103 @@ class GeminiService {
     }
   }
 
+  private isEventQuery(prompt: string): boolean {
+    const eventKeywords = [
+      'events', 'schedule', 'program', 'what\'s on', 'what is on',
+      'happening', 'today', 'activities', 'sessions', 'talks',
+      'workshops', 'show', 'presentation'
+    ];
+    const lowercasePrompt = prompt.toLowerCase();
+    return eventKeywords.some(keyword => lowercasePrompt.includes(keyword));
+  }
+
+  private isExhibitQuery(prompt: string): boolean {
+    const exhibitKeywords = [
+      'exhibit', 'exhibition', 'showcase', 'display', 'project',
+      'demonstration', 'show me', 'zone', 'area', 'department'
+    ];
+    const departments = [
+      'civil', 'mechanical', 'electrical', 'electronic', 'computer',
+      'chemical', 'process', 'production', 'materials'
+    ];
+    const zones = ['zone a', 'zone b', 'zone c', 'zone d', 'zone e'];
+    
+    const lowercasePrompt = prompt.toLowerCase();
+    return exhibitKeywords.some(keyword => lowercasePrompt.includes(keyword)) ||
+           departments.some(dept => lowercasePrompt.includes(dept)) ||
+           zones.some(zone => lowercasePrompt.includes(zone));
+  }
+
+  private extractDepartmentFromQuery(prompt: string): string | null {
+    const departmentMapping: Record<string, string> = {
+      'civil': 'Civil Engineering',
+      'mechanical': 'Mechanical Engineering',
+      'electrical': 'Electrical & Electronic Engineering',
+      'electronic': 'Electrical & Electronic Engineering',
+      'computer': 'Computer Engineering',
+      'chemical': 'Chemical & Process Engineering',
+      'process': 'Chemical & Process Engineering'
+    };
+
+    const lowercasePrompt = prompt.toLowerCase();
+    for (const [keyword, department] of Object.entries(departmentMapping)) {
+      if (lowercasePrompt.includes(keyword)) {
+        return department;
+      }
+    }
+    return null;
+  }
+
+  private extractZoneFromQuery(prompt: string): string | null {
+    const lowercasePrompt = prompt.toLowerCase();
+    const zoneMatch = lowercasePrompt.match(/zone [a-e]/i);
+    return zoneMatch ? zoneMatch[0].toUpperCase() : null;
+  }
+
+  private async handleExhibitQuery(prompt: string): Promise<string> {
+    const { getExhibitsByDepartment, getExhibitsByZone, formatExhibitsResponse } = await import('./exhibitsKnowledgeBase');
+    
+    const department = this.extractDepartmentFromQuery(prompt);
+    if (department) {
+      const exhibits = getExhibitsByDepartment(department);
+      return formatExhibitsResponse(exhibits);
+    }
+
+    const zone = this.extractZoneFromQuery(prompt);
+    if (zone) {
+      const exhibits = getExhibitsByZone(zone);
+      return formatExhibitsResponse(exhibits);
+    }
+
+    // If no specific department or zone is mentioned, provide a general guide
+    return "Please specify which department or zone you'd like to know about. You can ask about:\n" +
+           "- Departments: Civil, Mechanical, Electrical & Electronic, Computer, Chemical & Process Engineering\n" +
+           "- Zones: Zone A (Civil), Zone B (Mechanical), Zone C (Electrical), Zone D (Computer), Zone E (Chemical)";
+  }
+
+  private async handleEventQuery(prompt: string): Promise<string> {
+    const { getCurrentEvents, formatEventResponse } = await import('./eventsKnowledgeBase');
+    const events = getCurrentEvents();
+    return formatEventResponse(events);
+  }
+
   async generateResponse(prompt: string): Promise<string> {
     if (!this.model) {
-      return this.getFallbackResponse(prompt)
+      return this.getFallbackResponse(prompt);
     }
 
     try {
-      // Comprehensive training prompt with full EngEx and Faculty knowledge
+      // Check if this is an exhibit-related query first (more specific)
+      if (this.isExhibitQuery(prompt)) {
+        return this.handleExhibitQuery(prompt);
+      }
+      
+      // Then check for event-related queries
+      if (this.isEventQuery(prompt)) {
+        return this.handleEventQuery(prompt);
+      }
+
+      // For non-event queries, use the general knowledge base
       const enhancedPrompt = `You are Gemini, a highly knowledgeable AI assistant at EngEx 2025 (Engineering Exhibition) at the University of Peradeniya, Sri Lanka. You have been trained with comprehensive information about the exhibition and the faculty.
 
 YOUR CORE KNOWLEDGE - ENGEX EXHIBITION:
