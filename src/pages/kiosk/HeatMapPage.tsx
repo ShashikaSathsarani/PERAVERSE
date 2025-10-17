@@ -1,9 +1,12 @@
 import React from 'react';
 import SvgHeatmap from '../Heatmap/SvgHeatmap';
+import ChatBotButtonKiosk from './components/ChatBotButtonKiosk';
 
-interface HeatMapPageTailwindProps {}
+interface HeatMapPageTailwindProps {
+  onNavigateToChatBot?: () => void;
+}
 
-const HeatMapPageTailwind: React.FC<HeatMapPageTailwindProps> = () => {
+const HeatMapPageTailwind: React.FC<HeatMapPageTailwindProps> = ({ onNavigateToChatBot }) => {
   return (
     <div className="p-12 bg-white/20 rounded-3xl shadow-[0_8px_32px_rgba(31,38,135,0.37)] backdrop-blur-lg border border-white/18 max-w-7xl mx-auto">
       <h2 className="text-center text-white text-4xl font-bold mb-8 drop-shadow-lg">
@@ -24,6 +27,9 @@ const HeatMapPageTailwind: React.FC<HeatMapPageTailwindProps> = () => {
                   <SvgHeatmap />
                 </div>
         </div>
+        
+      {/* Floating ChatBot Button */}
+      {onNavigateToChatBot && <ChatBotButtonKiosk onNavigateToChatBot={onNavigateToChatBot} />}
     </div>
   );
 }

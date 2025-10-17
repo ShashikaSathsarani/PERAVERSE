@@ -12,7 +12,11 @@ interface Message {
   imageUrl?: string; // Optional image to display in the message
 }
 
-const ChatBotPage: React.FC = () => {
+interface ChatBotPageProps {
+  onNavigateToChatBot?: () => void;
+}
+
+const ChatBotPage: React.FC<ChatBotPageProps> = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -187,7 +191,7 @@ const ChatBotPage: React.FC = () => {
                   />
                   <div className="bg-slate-800/90 p-2 text-center">
                     <p className="text-xs text-slate-300">
-                      🗺️ Faculty of Engineering Campus Map - Click to view larger
+                      🗺️ Faculty of Engineering Campus Map 
                     </p>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import EngexLogo from './kioskAssets/Engex.jpg'
 import { useState, useEffect } from 'react'
+import ChatBotButtonKiosk from './components/ChatBotButtonKiosk'
 
 // Faculty slideshow images + captions
 import Img1 from './kioskAssets/background_image.jpg'
@@ -12,9 +13,11 @@ interface Slide {
   caption?: string;
 }
 
-interface HomePageTailwindProps {}
+interface HomePageTailwindProps {
+  onNavigateToChatBot?: () => void;
+}
 
-const HomePageTailwind: React.FC<HomePageTailwindProps> = () => {
+const HomePageTailwind: React.FC<HomePageTailwindProps> = ({ onNavigateToChatBot }) => {
   const slides: Slide[] = [
     { image: Img1 },
     { image: Img2 },
@@ -79,6 +82,9 @@ const HomePageTailwind: React.FC<HomePageTailwindProps> = () => {
           </p>
         </div>
       </div>
+
+      {/* Floating ChatBot Button */}
+      {onNavigateToChatBot && <ChatBotButtonKiosk onNavigateToChatBot={onNavigateToChatBot} />}
 
       {/* Custom styles for animations and text shadow */}
       <style dangerouslySetInnerHTML={{

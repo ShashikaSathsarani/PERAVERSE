@@ -16,6 +16,9 @@ const AppKiosk: React.FC = () => {
 
   // Pages array including ChatBot
   const pages = [HomePageTailwind, SchedulePageTailwind, ExhibitsPageTailwind, MapPageTailwind, HeatMapPageTailwind, ChatBotPage];
+  
+  // ChatBot is at index 5
+  const CHATBOT_PAGE_INDEX = 5;
 
   const handleUserActivity = useCallback(() => {
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
@@ -72,18 +75,22 @@ const AppKiosk: React.FC = () => {
                        linear-gradient(180deg, rgba(56,189,248,0.05) 0%, transparent 100%)`
         }}
       />
-      {/* Navigation */}
-      <NavigationTailwind currentPage={currentPage} onPageClick={handlePageClick} pages={pages} />
+      
+      {/* Navigation Sidebar - High z-index to stay on top */}
+      <div className="relative z-50">
+        <NavigationTailwind currentPage={currentPage} onPageClick={handlePageClick} pages={pages} />
+      </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col ml-[220px] mr-5 mt-2 mb-2 h-[calc(100vh-60px)]">
-        <div className="flex-1 p-8 overflow-y-auto overflow-x-hidden flex flex-col bg-slate-700/30 backdrop-blur-xl rounded-3xl mb-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.15)] scroll-smooth scrollbar-thin scrollbar-thumb-sky-400/60 scrollbar-track-slate-800/30">
-          <CurrentComponent />
+      {/* Main content area - aligned with sidebar height */}
+      <div className="fixed top-5 bottom-[90px] left-[210px] right-5 flex flex-col min-h-0 z-10">
+        {/* Page content with rounded container - scrollable */}
+        <div className="flex-1 p-8 overflow-y-auto overflow-x-hidden flex flex-col bg-slate-700/30 backdrop-blur-xl rounded-3xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.15)] scroll-smooth scrollbar-thin scrollbar-thumb-sky-400/60 scrollbar-track-slate-800/30 min-h-0">
+          <CurrentComponent onNavigateToChatBot={() => handlePageClick(CHATBOT_PAGE_INDEX)} />
         </div>
 
-        {/* Scrolling Contact Info - only show if NOT home page */}
-        {currentPage !== 0 && (
-          <div className="w-full overflow-hidden py-2 border-t border-white/20">
+        {/* Scrolling Contact Info - hide on home page (0) and chatbot page (5) */}
+        {currentPage !== 0 && currentPage !== CHATBOT_PAGE_INDEX && (
+          <div className="w-full overflow-hidden py-2 border-t border-white/20 flex-shrink-0 mb-2">
             <div className="animate-marquee-fast text-yellow-400 text-3xl font-bold whitespace-nowrap">
               <span className="mx-8">• University Security: +94 81 239 4914</span>
               <span className="mx-8">• University Medical Center: +94 81 239 2361</span>
@@ -92,9 +99,18 @@ const AppKiosk: React.FC = () => {
           </div>
         </div>
         )}
+      </div>
 
-        {/* Footer */}
-        <FooterTailwind />
+      {/* Footer - Aligned with content area, matching background color */}
+      <div className="fixed bottom-2 left-[210px] right-5 py-3 bg-slate-700/30 backdrop-blur-xl border border-white/15 rounded-3xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_20px_40px_rgba(0,0,0,0.15)] z-40">
+        <div className="text-center text-white/80 px-4">
+          <p className="my-1 text-xs font-normal">
+            © 2025 Faculty of Engineering, University of Peradeniya
+          </p>
+          <p className="my-1 text-xs font-light">
+            PeraVerse Digital Kiosk System by PeraCom
+          </p>
+        </div>
       </div>
 
       {/* Marquee Animation Styles */}

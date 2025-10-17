@@ -33,7 +33,7 @@ const NavigationTailwind: React.FC<NavigationTailwindProps> = ({ currentPage, on
   }, [])
   
   return (
-    <div className="fixed left-5 top-5 w-[180px] h-[calc(100vh-50px)] bg-slate-800/90 backdrop-blur-3xl border border-white/15 rounded-3xl p-4 flex flex-col z-[1000] shadow-[0_25px_50px_rgba(0,0,0,0.25)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+    <div className="fixed left-5 top-5 bottom-2 w-[180px] bg-slate-800/90 backdrop-blur-3xl border border-white/15 rounded-3xl p-4 flex flex-col z-[1000] shadow-[0_25px_50px_rgba(0,0,0,0.25)] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
       {/* Logo Section */}
       <div className="flex justify-center items-center mb-6 pb-6 border-b border-white/15">
         <img 
@@ -44,19 +44,27 @@ const NavigationTailwind: React.FC<NavigationTailwindProps> = ({ currentPage, on
       </div>
       
       {/* Navigation Menu */}
-      <div className="flex flex-col gap-4 flex-1 overflow-y-auto overflow-x-hidden px-2 pt-3 pb-0.5 scrollbar-thin scrollbar-thumb-blue-500/60 scrollbar-track-slate-700/30 hover:scrollbar-thumb-blue-500/80">
+      <div className="flex flex-col gap-4 flex-1 overflow-y-auto overflow-x-visible px-2 pt-3 pb-0.5 scrollbar-thin scrollbar-thumb-blue-500/60 scrollbar-track-slate-700/30 hover:scrollbar-thumb-blue-500/80">
         {pages.map((_, index) => (
           <div
             key={index}
-            className={`nav-item flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-700/60 backdrop-blur-md border-2 border-white/10 transition-all duration-300 ease-cubic-bezier(0.4,0,0.2,1) relative overflow-hidden cursor-pointer select-none ${
+            className={`nav-item flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-700/60 backdrop-blur-md border-2 border-white/10 transition-all duration-300 relative cursor-pointer select-none group ${
               index === currentPage 
-                ? 'active bg-blue-500/30 border-blue-500/60 scale-105 shadow-[0_12px_35px_rgba(59,130,246,0.4)]' 
-                : 'hover:bg-sky-400/20 hover:border-sky-400/40 hover:scale-105 hover:shadow-[0_8px_25px_rgba(56,189,248,0.3)]'
+                ? 'active bg-gradient-to-r from-blue-500/40 to-purple-500/40 border-blue-400/80 scale-105 shadow-[0_5px_20px_5px_rgba(59,130,246,0.4),0_0_15px_rgba(168,85,247,0.3)]' 
+                : 'hover:bg-gradient-to-r hover:from-sky-400/25 hover:to-cyan-400/25 hover:border-sky-400/50 hover:scale-[1.03] hover:shadow-[0_5px_15px_5px_rgba(56,189,248,0.35)] active:scale-95 active:shadow-[0_5px_10px_5px_rgba(56,189,248,0.5)] active:brightness-125'
             }`}
             onClick={() => onPageClick(index)}
             style={{ cursor: 'pointer' }}
           >
-            <span className="text-white/90 font-medium text-base">
+            {/* Ripple effect overlay */}
+            <div className="absolute inset-0 bg-white/0 group-active:bg-white/20 transition-all duration-150 rounded-2xl"></div>
+            
+            {/* Shimmer effect on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+            </div>
+            
+            <span className="text-white/90 font-medium text-base relative z-10 group-active:scale-95 transition-transform duration-150">
               {pageNames[index]}
             </span>
           </div>

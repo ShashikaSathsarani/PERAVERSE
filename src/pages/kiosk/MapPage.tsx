@@ -1,9 +1,12 @@
 import React from 'react';
 import Dashboard from '../Maps/Dashboard';
+import ChatBotButtonKiosk from './components/ChatBotButtonKiosk';
 
-interface MapPageTailwindProps {}
+interface MapPageTailwindProps {
+  onNavigateToChatBot?: () => void;
+}
 
-const MapPageTailwind: React.FC<MapPageTailwindProps> = () => {
+const MapPageTailwind: React.FC<MapPageTailwindProps> = ({ onNavigateToChatBot }) => {
   
 
   return (
@@ -11,6 +14,9 @@ const MapPageTailwind: React.FC<MapPageTailwindProps> = () => {
       <div className="flex-1 w-full h-full">
         <Dashboard kiosk_mode={true}/>
       </div>
+      
+      {/* Floating ChatBot Button */}
+      {onNavigateToChatBot && <ChatBotButtonKiosk onNavigateToChatBot={onNavigateToChatBot} />}
     </div>
   );
 };

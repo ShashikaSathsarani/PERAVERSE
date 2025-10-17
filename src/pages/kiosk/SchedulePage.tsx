@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 // @ts-ignore - JavaScript module without TypeScript declarations
 import { getAllEvents } from './utils/eventService'
+import ChatBotButtonKiosk from './components/ChatBotButtonKiosk'
 
 interface Event {
   event_id: string;
@@ -12,9 +13,11 @@ interface Event {
   categories?: string[];
 }
 
-interface SchedulePageTailwindProps {}
+interface SchedulePageTailwindProps {
+  onNavigateToChatBot?: () => void;
+}
 
-const SchedulePageTailwind: React.FC<SchedulePageTailwindProps> = () => {
+const SchedulePageTailwind: React.FC<SchedulePageTailwindProps> = ({ onNavigateToChatBot }) => {
   // State management
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [allEvents, setAllEvents] = useState<Event[]>([]) // All events
@@ -360,6 +363,9 @@ const SchedulePageTailwind: React.FC<SchedulePageTailwindProps> = () => {
           }
         `
       }} />
+      
+      {/* Floating ChatBot Button */}
+      {onNavigateToChatBot && <ChatBotButtonKiosk onNavigateToChatBot={onNavigateToChatBot} />}
     </div>
   )
 }

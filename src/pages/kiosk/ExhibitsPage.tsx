@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import ChatBotButtonKiosk from './components/ChatBotButtonKiosk'
 
 interface Exhibit {
   exhibit_id: string;
@@ -26,9 +27,11 @@ const PREDEFINED_TAGS: string[] = [
 ]
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface ExhibitsPageTailwindProps {}
+interface ExhibitsPageTailwindProps {
+  onNavigateToChatBot?: () => void;
+}
 
-const ExhibitsPageTailwind: React.FC<ExhibitsPageTailwindProps> = () => {
+const ExhibitsPageTailwind: React.FC<ExhibitsPageTailwindProps> = ({ onNavigateToChatBot }) => {
   // State management
   const [allExhibits, setAllExhibits] = useState<Exhibit[]>([]) // All exhibits
   const [loading, setLoading] = useState<boolean>(true)
@@ -479,6 +482,9 @@ const ExhibitsPageTailwind: React.FC<ExhibitsPageTailwindProps> = () => {
           }
         `
       }} />
+      
+      {/* Floating ChatBot Button */}
+      {onNavigateToChatBot && <ChatBotButtonKiosk onNavigateToChatBot={onNavigateToChatBot} />}
     </div>
   )
 }
