@@ -143,10 +143,102 @@ const deleteBuilding = async (req, res) => {
   }
 };
 
+// ==============================
+// FILTER BUILDINGS BY EXHIBIT TAG
+// ==============================
+const filterByTag = async (req, res) => {
+  const { tag } = req.query; // optional
+
+  try {
+    const result = await pool.query(`
+      SELECT building_ID, zone_ID, building_name, description, exhibits
+      FROM Building
+      ORDER BY building_ID
+    `);
+
+    const predefinedTags = ['AI','ICT','Structures','Mechanical','Civil','Power','Automation','Robotics','Electronics','Software'];
+
+    const buildings = result.rows.map(row => {
+      // exhibits may be stored as JSON array or comma-separated string
+      let exhibitsArr = [];
+      let exhibitTagsMap = {};
+
+      try {
+        if (!row.exhibits) {
+          exhibitsArr = [];
+        } else if (typeof row.exhibits === 'object') {
+          // already parsed
+          exhibitsArr = Array.isArray(row.exhibits) ? row.exhibits : [];
+        } else {
+          // try parse JSON
+          try {
+            const parsed = JSON.parse(row.exhibits);
+            exhibitsArr = Array.isArray(parsed) ? parsed : [String(parsed)];
+          } catch (e) {
+            // fallback to CSV split
+            exhibitsArr = String(row.exhibits).split(',').map(s => s.trim()).filter(Boolean);
+          }
+        }
+      } catch (e) {
+        exhibitsArr = [];
+      }
+
+      // For each exhibit, try to infer tags by checking presence of predefined tag words
+      exhibitsArr.forEach(exhibitName => {
+        const tagsFound = [];
+        const nameLower = String(exhibitName).toLowerCase();
+        predefinedTags.forEach(t => {
+          if (nameLower.includes(t.toLowerCase())) tagsFound.push(t);
+        });
+        if (tagsFound.length === 0) tagsFound.push('Other');
+        exhibitTagsMap[exhibitName] = tagsFound;
+      });
+
+      return {
+        building_id: row.building_id || row.building_ID,
+        building_name: row.building_name,
+        exhibits: exhibitsArr,
+        zone_id: row.zone_id || row.zone_ID,
+        exhibit_tags: exhibitTagsMap
+      };
+    });
+
+    // If tag filter provided, filter exhibits and buildings accordingly
+    if (tag) {
+      const filtered = buildings
+        .map(b => {
+          const matchedExhibits = b.exhibits.filter(ex => (b.exhibit_tags[ex] || []).includes(tag));
+          if (matchedExhibits.length === 0) return null;
+          // Construct building object with only matched exhibits and tags
+          const exhibit_tags = {};
+          matchedExhibits.forEach(ex => {
+            exhibit_tags[ex] = b.exhibit_tags[ex];
+          });
+          return {
+            ...b,
+            exhibits: matchedExhibits,
+            exhibit_tags
+          };
+        })
+        .filter(Boolean);
+
+      // Return 200 with filtered array (empty array if none)
+      return res.json(filtered);
+    }
+
+    // No tag -> return all buildings with their parsed exhibits and tags
+    res.json(buildings);
+  } catch (err) {
+    console.error('Error in filterByTag:', err);
+    res.status(500).json({ message: 'Database error', error: err.message });
+  }
+};
+
 module.exports = {
   getBuildings,
   getBuildingById,
   createBuilding,
   updateBuilding,
-  deleteBuilding
+  deleteBuilding,
+  filterByTag
 };
