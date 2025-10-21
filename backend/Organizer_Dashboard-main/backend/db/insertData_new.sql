@@ -1,3 +1,4 @@
+
 \c organizer_dashboard;
 
 INSERT INTO Zone (zone_name) VALUES

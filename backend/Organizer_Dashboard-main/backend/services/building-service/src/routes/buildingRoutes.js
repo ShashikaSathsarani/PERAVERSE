@@ -5,6 +5,9 @@ const buildingController = require('../controllers/buildingController');
 // Get all buildings
 router.get('/', buildingController.getBuildings);
 
+// Filter buildings by exhibit tag or return all with exhibit tags
+router.get('/filterByTag', buildingController.filterByTag);
+
 // Get building by ID
 router.get('/:id', buildingController.getBuildingById);
 
