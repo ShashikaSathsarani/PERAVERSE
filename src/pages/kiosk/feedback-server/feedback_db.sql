@@ -1,6 +1,4 @@
 
-DROP TABLE IF EXISTS feedbacks;
-
 create database feedbackdb;
 
 CREATE TABLE feedbacks (

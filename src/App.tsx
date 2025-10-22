@@ -10,7 +10,7 @@ import Appevents from "./pages/Events/Appevents"
 import CrowdManagement from './pages/Heatmap/CrowdManagement';
 import Dashboard from './pages/Maps/Dashboard';
 import ChatbotIcon from './components/ChatbotIcon';
-
+import FeedbackPopup from './pages/kiosk/FeedbackPopup';
 
 
 function AppContent() {
@@ -22,6 +22,7 @@ function AppContent() {
     <div className="App">
       {!isDashboard && !isKiosk && <Navbar />}
       <ChatbotIcon />
+        {isKiosk && <FeedbackPopup />}
       <main style={{ minHeight: 'calc(100vh - 140px)', paddingTop: !isDashboard && !isKiosk ? '70px' : '0' }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
