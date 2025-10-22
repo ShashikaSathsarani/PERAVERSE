@@ -56,6 +56,21 @@ const AppKiosk: React.FC = () => {
     };
     window.addEventListener('switchToChat', handleChatIconClick as EventListener);
 
+    // Listen for kiosk navigation requests (from internal components)
+    const handleKioskNavigate = (e: Event) => {
+      try {
+        const detail = (e as CustomEvent).detail || {};
+        const pageIndex = typeof detail.pageIndex === 'number' ? detail.pageIndex : 3; // default to Map page
+        setCurrentPage(pageIndex);
+        handleUserActivity();
+        const pageChangeEvent = new CustomEvent('kioskPageChange', { detail: { pageIndex } });
+        window.dispatchEvent(pageChangeEvent);
+      } catch (err) {
+        console.error('handleKioskNavigate error', err);
+      }
+    };
+    window.addEventListener('kioskNavigate', handleKioskNavigate as EventListener);
+
     if (!showIntroVideo) {
       addEventListeners();
       handleUserActivity();
@@ -66,6 +81,7 @@ const AppKiosk: React.FC = () => {
     return () => {
       removeEventListeners();
       window.removeEventListener('switchToChat', handleChatIconClick as EventListener);
+      window.removeEventListener('kioskNavigate', handleKioskNavigate as EventListener);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     };
   }, [showIntroVideo, handleUserActivity]);
