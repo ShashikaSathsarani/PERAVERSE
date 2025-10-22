@@ -4,6 +4,7 @@ import SchedulePageTailwind from './SchedulePage'
 import ExhibitsPageTailwind from './ExhibitsPage'
 import MapPageTailwind from './MapPage'
 import HeatMapPageTailwind from './HeatMapPage'
+import ChatBotPage from './ChatBotPage'
 import IntroVideoTailwind from './IntroVideo'
 import NavigationTailwind from './Navigation'
 import FooterTailwind from './Footer'
@@ -15,14 +16,15 @@ const AppKiosk: React.FC = () => {
   const [showIntroVideo, setShowIntroVideo] = useState<boolean>(true);
   const inactivityTimerRef = useRef<number | null>(null);
 
-  // Removed ContactPage from pages array
+  // Combined: include both NotificationsPage and ChatBotPage
   const pages = [
     HomePageTailwind,
     SchedulePageTailwind,
     ExhibitsPageTailwind,
     MapPageTailwind,
     HeatMapPageTailwind,
-    NotificationsPage
+    NotificationsPage,
+    ChatBotPage
   ];
 
   // ✅ Fixed function
@@ -47,12 +49,40 @@ const AppKiosk: React.FC = () => {
   const handlePageClick = (pageIndex: number) => {
     setCurrentPage(pageIndex);
     handleUserActivity();
+    // Emit page change event for ChatbotIcon
+    const event = new CustomEvent('kioskPageChange', { detail: { pageIndex } });
+    window.dispatchEvent(event);
   };
 
   useEffect(() => {
     const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'] as const;
     const addEventListeners = () => events.forEach(event => document.addEventListener(event, handleUserActivity, true));
     const removeEventListeners = () => events.forEach(event => document.removeEventListener(event, handleUserActivity, true));
+
+    // Add listener for chat icon clicks
+    const handleChatIconClick = (e: CustomEvent) => {
+      setCurrentPage(e.detail.pageIndex);
+      handleUserActivity();
+      // Emit page change event for ChatbotIcon
+      const pageChangeEvent = new CustomEvent('kioskPageChange', { detail: { pageIndex: e.detail.pageIndex } });
+      window.dispatchEvent(pageChangeEvent);
+    };
+    window.addEventListener('switchToChat', handleChatIconClick as EventListener);
+
+    // Listen for kiosk navigation requests (from internal components)
+    const handleKioskNavigate = (e: Event) => {
+      try {
+        const detail = (e as CustomEvent).detail || {};
+        const pageIndex = typeof detail.pageIndex === 'number' ? detail.pageIndex : 3; // default to Map page
+        setCurrentPage(pageIndex);
+        handleUserActivity();
+        const pageChangeEvent = new CustomEvent('kioskPageChange', { detail: { pageIndex } });
+        window.dispatchEvent(pageChangeEvent);
+      } catch (err) {
+        console.error('handleKioskNavigate error', err);
+      }
+    };
+    window.addEventListener('kioskNavigate', handleKioskNavigate as EventListener);
 
     if (!showIntroVideo) {
       addEventListeners();
@@ -64,6 +94,8 @@ const AppKiosk: React.FC = () => {
 
     return () => {
       removeEventListeners();
+      window.removeEventListener('switchToChat', handleChatIconClick as EventListener);
+      window.removeEventListener('kioskNavigate', handleKioskNavigate as EventListener);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     };
   }, [showIntroVideo, handleUserActivity]);
