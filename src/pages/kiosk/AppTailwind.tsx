@@ -9,24 +9,37 @@ import NotificationPage from './NotificationPage'
 import IntroVideoTailwind from './IntroVideo'
 import NavigationTailwind from './Navigation'
 import FooterTailwind from './Footer'
+import NotificationsPage from './NotificationsPage';
+
 
 const AppKiosk: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [showIntroVideo, setShowIntroVideo] = useState<boolean>(true);
-  const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const inactivityTimerRef = useRef<number | null>(null);
 
-  // Pages array including ChatBot and Notifications
-  const pages = [HomePageTailwind, SchedulePageTailwind, ExhibitsPageTailwind, MapPageTailwind, HeatMapPageTailwind, ChatBotPage, NotificationPage];
+  // Combined: include both NotificationsPage and ChatBotPage
+  const pages = [
+    HomePageTailwind,
+    SchedulePageTailwind,
+    ExhibitsPageTailwind,
+    MapPageTailwind,
+    HeatMapPageTailwind,
+    NotificationsPage,
+    ChatBotPage
+  ];
 
+  // ✅ Fixed function
   const handleUserActivity = useCallback(() => {
-    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
-    if (!showIntroVideo) {
-      inactivityTimerRef.current = setTimeout(() => {
-        setShowIntroVideo(true);
-        setCurrentPage(0);
-      }, 60000);
+    if (inactivityTimerRef.current) {
+      clearTimeout(inactivityTimerRef.current);
     }
-  }, [showIntroVideo]);
+
+    // Set a 60-second inactivity timer to reset to Home
+    inactivityTimerRef.current = window.setTimeout(() => {
+      setCurrentPage(0);
+      setShowIntroVideo(true); // optionally go back to intro after inactivity
+    }, 60000);
+  }, []);
 
   const handleIntroVideoClick = () => {
     setShowIntroVideo(false);
@@ -79,6 +92,7 @@ const AppKiosk: React.FC = () => {
       removeEventListeners();
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     }
+
     return () => {
       removeEventListeners();
       window.removeEventListener('switchToChat', handleChatIconClick as EventListener);
@@ -103,6 +117,7 @@ const AppKiosk: React.FC = () => {
                        linear-gradient(180deg, rgba(56,189,248,0.05) 0%, transparent 100%)`
         }}
       />
+
       {/* Navigation */}
       <NavigationTailwind currentPage={currentPage} onPageClick={handlePageClick} pages={pages} />
 
@@ -120,8 +135,8 @@ const AppKiosk: React.FC = () => {
               <span className="mx-8">• University Medical Center: +94 81 239 2361</span>
               <span className="mx-8">• Event Coordinator: +94 81 239 3000</span>
               <span className="mx-8">• Technical Support: +94 81 239 3001</span>
+            </div>
           </div>
-        </div>
         )}
 
         {/* Footer */}
@@ -129,28 +144,27 @@ const AppKiosk: React.FC = () => {
       </div>
 
       {/* Marquee Animation Styles */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
           @keyframes marquee {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
           }
-
           .animate-marquee {
             display: inline-block;
             animation: marquee 10s linear infinite;
           }
-
           @keyframes marquee-fast {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
           }
-
           .animate-marquee-fast {
             animation: marquee-fast 30s linear infinite;
           }
         `
-      }} />
+        }}
+      />
     </div>
   );
 };
