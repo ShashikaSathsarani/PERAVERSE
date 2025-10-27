@@ -147,3 +147,5 @@ User: ${prompt}`
 }
 
 export const geminiService = new GeminiService()
+
+//new file of geminiService.ts
