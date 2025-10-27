@@ -1,27 +1,42 @@
-/* Animation delay utilities for typing indicator */
+/*
+____________________________________________________
+CSS file
+1. Animation Delay (for Typing Indicator)
+2. Chat Scrollbar
+____________________________________________________
+*/
+
+
+/* Animation delay utilities for typing indicator (make the typing dots)*/
 .animation-delay-200 {
-  animation-delay: 0.2s;
+  animation-delay: 0.2s; /*Delays the start of an animation by 0.2 seconds*/
 }
 
 .animation-delay-400 {
-  animation-delay: 0.4s;
+  animation-delay: 0.4s; /*Delays the start of an animation by 0.4 seconds*/
 }
 
+
+/***********************************************************************************************/
 /* Custom scrollbar for chat */
 .chat-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 6px; /*Makes the scrollbar 6px wide (slim)*/
 }
 
-.chat-scrollbar::-webkit-scrollbar-track {
+/*::-webkit-scrollbar is a pseudo-element that works in Chrome, Edge, and Safari*/
+.chat-scrollbar::-webkit-scrollbar-track {   
   background: rgba(30, 41, 59, 0.3);
   border-radius: 3px;
 }
 
+/*Styles the thumb (the draggable part of the scrollbar)*/
 .chat-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(56, 189, 248, 0.6);
   border-radius: 3px;
 }
 
+/*Makes the thumb brighter (less transparent) when hovered*/
 .chat-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(56, 189, 248, 0.8);
 }
+/***********************************************************************************************/
