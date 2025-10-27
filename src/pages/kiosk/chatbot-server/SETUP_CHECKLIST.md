@@ -78,31 +78,31 @@ Use this checklist to track your progress setting up the database system.
 - [ ] **6.1** Opened second PowerShell window
 - [ ] **6.2** **Test 1 - Health Check:**
   ```powershell
-  curl http://localhost:3004/health
-  ```
-- [ ] **6.3** Got response: `{"success": true, "message": "..."}`
+  curl http://localhost:8080/health
 
-- [ ] **6.4** **Test 2 - Search for "map":**
-  ```powershell
-  curl "http://localhost:3004/api/knowledge-base/search?q=map"
-  ```
-- [ ] **6.5** Got response with campus map data
+  curl "http://localhost:8080/api/knowledge-base/search?q=map"
+
+  curl http://localhost:8080/api/knowledge-base/category/SCHEDULE
+
+  curl http://localhost:8080/api/knowledge-base/all
+
+  curl -X POST http://localhost:8080/api/knowledge-base/query -H "Content-Type: application/json" -d "{\"query\": \"where is canteen\"}"
 
 - [ ] **6.6** **Test 3 - Get schedule:**
   ```powershell
-  curl http://localhost:3004/api/knowledge-base/category/SCHEDULE
+  curl http://localhost:8080/api/knowledge-base/category/SCHEDULE
   ```
 - [ ] **6.7** Got response with event timings
 
 - [ ] **6.8** **Test 4 - Get all data:**
   ```powershell
-  curl http://localhost:3004/api/knowledge-base/all
+  curl http://localhost:8080/api/knowledge-base/all
   ```
 - [ ] **6.9** Got response with all categories
 
 - [ ] **6.10** **Test 5 - Intelligent query:**
   ```powershell
-  curl -X POST http://localhost:3004/api/knowledge-base/query -H "Content-Type: application/json" -d "{\"query\": \"where is canteen\"}"
+  curl -X POST http://localhost:8080/api/knowledge-base/query -H "Content-Type: application/json" -d "{\"query\": \"where is canteen\"}"
   ```
 - [ ] **6.11** Got response with canteen location
 

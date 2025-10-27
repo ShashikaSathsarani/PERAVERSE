@@ -6,7 +6,7 @@ async function testChatbot() {
   // Test 1: Health check
   console.log('1️⃣ Testing API Health...');
   try {
-    const healthRes = await fetch('http://localhost:3004/health');
+    const healthRes = await fetch('http://localhost:8080/health');
     const healthData = await healthRes.json();
     console.log('✅ API Health:', healthData);
   } catch (error) {
@@ -17,7 +17,7 @@ async function testChatbot() {
   // Test 2: Query database
   console.log('\n2️⃣ Testing Database Query...');
   try {
-    const queryRes = await fetch('http://localhost:3004/api/knowledge-base/query', {
+    const queryRes = await fetch('http://localhost:8080/api/knowledge-base/query', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: 'What are the departments?' })
@@ -35,7 +35,7 @@ async function testChatbot() {
   // Test 3: Get all records
   console.log('\n3️⃣ Testing Get All Records...');
   try {
-    const allRes = await fetch('http://localhost:3004/api/knowledge-base/all');
+    const allRes = await fetch('http://localhost:8080/api/knowledge-base/all');
     const allData = await allRes.json();
     console.log('✅ Total Records:', allData.data?.length || 0);
     if (allData.data?.length > 0) {

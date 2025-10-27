@@ -52,7 +52,7 @@ Update your `.env` file (in project root):
 # Add these lines
 SUPABASE_URL=https://xxxxx.supabase.co
 SUPABASE_SERVICE_KEY=your-service-key-here
-KB_API_PORT=3004
+KB_API_PORT=8080
 ```
 
 ### Step 3: Start the API Server
@@ -70,28 +70,28 @@ npm start
 
 You should see:
 ```
-🤖 EngEx Knowledge Base API running on port 3004
-📊 Health check: http://localhost:3004/health
-🔍 Search endpoint: http://localhost:3004/api/knowledge-base/search
+🤖 EngEx Knowledge Base API running on port 8080
+📊 Health check: http://localhost:8080/health
+🔍 Search endpoint: http://localhost:8080/api/knowledge-base/search
 ```
 
 ## ✅ Test Your Setup
 
 ### Test 1: Health Check
 ```powershell
-curl http://localhost:3004/health
+curl http://localhost:8080/health
 ```
 Expected: `{"success": true, "message": "EngEx Knowledge Base API is running"}`
 
 ### Test 2: Search for "map"
 ```powershell
-curl "http://localhost:3004/api/knowledge-base/search?q=map"
+curl "http://localhost:8080/api/knowledge-base/search?q=map"
 ```
 Expected: Returns campus map information
 
 ### Test 3: Get Schedule
 ```powershell
-curl http://localhost:3004/api/knowledge-base/category/SCHEDULE
+curl http://localhost:8080/api/knowledge-base/category/SCHEDULE
 ```
 Expected: Returns all events with timings
 
@@ -239,7 +239,7 @@ LIMIT 10;
 
 | Endpoint | Method | Purpose | Example |
 |----------|--------|---------|---------|
-| `/health` | GET | Check API status | `curl localhost:3004/health` |
+| `/health` | GET | Check API status | `curl localhost:8080/health` |
 | `/api/knowledge-base/search` | GET | Search by keywords | `?q=map&category=CAMPUS` |
 | `/api/knowledge-base/category/:cat` | GET | Get by category | `/category/SCHEDULE` |
 | `/api/knowledge-base/all` | GET | Get all entries | Returns grouped data |
@@ -342,6 +342,6 @@ cd src/pages/kiosk/chatbot-server
 npm start
 ```
 
-Then visit: http://localhost:3004/health
+Then visit: http://localhost:8080/health
 
 Happy coding! 🎊

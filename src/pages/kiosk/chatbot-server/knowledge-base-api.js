@@ -256,7 +256,7 @@ app.get('/health', (req, res) => {
 
 
 // Start server
-const server = app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '127.0.0.1', () => {
     console.log(`🤖 EngEx Knowledge Base API running on port ${PORT}`);
     console.log(`📊 Health check: http://localhost:${PORT}/health`);
     console.log(`🔍 Search endpoint: http://localhost:${PORT}/api/knowledge-base/search`);

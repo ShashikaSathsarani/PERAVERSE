@@ -235,7 +235,7 @@ Step 3: Install & Start (5 min)
 └── npm start
 
 Step 4: Test (5 min)
-├── curl http://localhost:3004/health
+├── curl http://localhost:8080/health
 ├── Test search endpoint
 └── Verify data returned
 
@@ -261,7 +261,7 @@ Total Time: ~45 minutes
 You know it's working when:
 
 ✅ API server starts without errors  
-✅ `curl http://localhost:3004/health` returns success  
+✅ `curl http://localhost:8080/health` returns success  
 ✅ Searching "map" returns campus map info  
 ✅ Supabase shows 16+ rows in knowledge_base table  
 ✅ Chatbot can answer questions from database  
@@ -369,16 +369,18 @@ npm start
 npm run dev
 
 # Test health endpoint
-curl http://localhost:3004/health
+
+curl http://localhost:8080/health
 
 # Search for keyword
-curl "http://localhost:3004/api/knowledge-base/search?q=map"
+
+curl "http://localhost:8080/api/knowledge-base/search?q=map"
 
 # Get category
-curl http://localhost:3004/api/knowledge-base/category/SCHEDULE
+curl http://localhost:8080/api/knowledge-base/category/SCHEDULE
 
 # Intelligent query (POST)
-curl -X POST http://localhost:3004/api/knowledge-base/query `
+curl -X POST http://localhost:8080/api/knowledge-base/query `
   -H "Content-Type: application/json" `
   -d '{"query": "where is canteen"}'
 ```

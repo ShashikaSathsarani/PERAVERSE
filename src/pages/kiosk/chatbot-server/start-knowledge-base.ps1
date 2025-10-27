@@ -17,7 +17,7 @@ SUPABASE_URL=https://your-project-id.supabase.co
 SUPABASE_SERVICE_KEY=your-service-role-key-here
 
 # Knowledge Base API Port
-KB_API_PORT=3004
+KB_API_PORT=8080
 
 # OpenAI (if used)
 OPENAI_API_KEY=your-openai-key-here
@@ -90,13 +90,13 @@ if ($runSchema -ne "y") {
 Write-Host ""
 Write-Host "🚀 Step 5: Starting Knowledge Base API..." -ForegroundColor Yellow
 Write-Host ""
-Write-Host "✨ Starting server on port 3004..." -ForegroundColor Cyan
+Write-Host "✨ Starting server on port 8080..." -ForegroundColor Cyan
 Write-Host ""
 Write-Host "📊 Available endpoints:" -ForegroundColor Green
-Write-Host "  - Health Check: http://localhost:3004/health" -ForegroundColor White
-Write-Host "  - Search: http://localhost:3004/api/knowledge-base/search?q=map" -ForegroundColor White
-Write-Host "  - Category: http://localhost:3004/api/knowledge-base/category/ENGEX" -ForegroundColor White
-Write-Host "  - Query: http://localhost:3004/api/knowledge-base/query" -ForegroundColor White
+Write-Host "  - Health Check: http://localhost:8080/health" -ForegroundColor White
+Write-Host "  - Search: http://localhost:8080/api/knowledge-base/search?q=map" -ForegroundColor White
+Write-Host "  - Category: http://localhost:8080/api/knowledge-base/category/ENGEX" -ForegroundColor White
+Write-Host "  - Query: http://localhost:8080/api/knowledge-base/query" -ForegroundColor White
 Write-Host ""
 Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host ""

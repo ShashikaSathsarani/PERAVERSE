@@ -86,10 +86,10 @@ npm run dev  # for auto-reload during development
 
 ```bash
 # Test health endpoint
-curl http://localhost:3004/health
+curl http://localhost:8080/health
 
 # Search for "map"
-curl "http://localhost:3004/api/knowledge-base/search?q=map"
+curl "http://localhost:8080/api/knowledge-base/search?q=map"
 ```
 
 ## 💡 Usage Examples
@@ -338,7 +338,7 @@ CSV HEADER;
 ### API not responding
 ```bash
 # Check if server is running
-curl http://localhost:3004/health
+curl http://localhost:8080/health
 
 # Check logs
 npm run dev  # Shows console logs

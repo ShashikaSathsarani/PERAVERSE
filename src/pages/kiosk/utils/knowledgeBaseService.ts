@@ -1,7 +1,9 @@
 // knowledgeBaseService.ts
 // Service to fetch knowledge from database instead of markdown file
 
-const KB_API_URL = 'http://localhost:3004/api/knowledge-base';
+const KB_API_URL = 'http://localhost:8080/api/knowledge-base';
+// Host-level API base (without the /api/knowledge-base path) for health and conversation endpoints
+const API_HOST = KB_API_URL.replace('/api/knowledge-base', '');
 
 interface KnowledgeBaseItem {
   id: number;
@@ -119,7 +121,7 @@ class KnowledgeBaseService {
     kbItemsUsed: number[] = []
   ): Promise<void> {
     try {
-      await fetch('http://localhost:3004/api/conversations/save', {
+      await fetch(`${API_HOST}/api/conversations/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +162,7 @@ Use the above information to provide an accurate and helpful response.
    */
   async isAvailable(): Promise<boolean> {
     try {
-      const response = await fetch('http://localhost:3004/health', {
+      const response = await fetch(`${API_HOST}/health`, {
         method: 'GET',
       });
       const result = await response.json();

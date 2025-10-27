@@ -2,7 +2,7 @@
 async function testDepartmentQuery() {
   console.log('\n🔍 Testing "What are the departments?" query...\n');
   
-  const response = await fetch('http://localhost:3004/api/knowledge-base/query', {
+  const response = await fetch('http://localhost:8080/api/knowledge-base/query', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query: 'What are the departments?' })

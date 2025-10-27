@@ -74,15 +74,16 @@ npm run dev
 You should see:
 ```
 🤖 EngEx Knowledge Base API running on port 3004
-📊 Health check: http://localhost:3004/health
-🔍 Search endpoint: http://localhost:3004/api/knowledge-base/search
+📊 Health check: http://localhost:8080/health
+🔍 Search endpoint: http://localhost:8080/api/knowledge-base/search
 ```
 
 ## Step 5: Test the API
 
 ### Test 1: Health Check
 ```bash
-curl http://localhost:3004/health
+
+curl http://localhost:8080/health
 ```
 
 Expected response:
@@ -96,21 +97,23 @@ Expected response:
 
 ### Test 2: Search for "map"
 ```bash
-curl "http://localhost:3004/api/knowledge-base/search?q=map"
+
+curl "http://localhost:8080/api/knowledge-base/search?q=map"
 ```
 
 Expected: Returns campus map information
 
 ### Test 3: Get all EngEx information
 ```bash
-curl http://localhost:3004/api/knowledge-base/category/ENGEX
+
+curl http://localhost:8080/api/knowledge-base/category/ENGEX
 ```
 
 Expected: Returns all EngEx-related entries
 
 ### Test 4: Intelligent query
 ```bash
-curl -X POST http://localhost:3004/api/knowledge-base/query \
+curl -X POST http://localhost:8080/api/knowledge-base/query \
   -H "Content-Type: application/json" \
   -d '{"query": "where is the canteen"}'
 ```
@@ -190,7 +193,7 @@ Update your `geminiService.ts` or chatbot logic to call the API:
 ```typescript
 // Example: Query knowledge base before generating response
 async function getKnowledgeBaseContext(userMessage: string) {
-  const response = await fetch('http://localhost:3004/api/knowledge-base/query', {
+  const response = await fetch('http://localhost:8080/api/knowledge-base/query', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query: userMessage })

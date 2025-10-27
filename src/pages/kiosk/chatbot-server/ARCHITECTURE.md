@@ -92,7 +92,7 @@
 3. Calls knowledgeBaseService.queryKnowledge("show me the map")
    ↓
 4. knowledgeBaseService sends POST to:
-   http://localhost:3004/api/knowledge-base/query
+   http://localhost:8080/api/knowledge-base/query
    Body: {"query": "show me the map"}
    ↓
 5. knowledge-base-api.js receives request

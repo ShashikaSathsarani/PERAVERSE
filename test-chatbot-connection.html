@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot-Database Connection Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .error {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .info {
+            color: #64b5f6;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-ok {
+            background-color: #4CAF50;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+        .status-error {
+            background-color: #ff6b6b;
+            box-shadow: 0 0 10px #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Chatbot-Database Connection Test</h1>
+        
+        <div class="test-section">
+            <h2>1️⃣ API Health Check</h2>
+            <button onclick="testHealth()">Test API Health</button>
+            <div id="healthResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>2️⃣ Database Query Test</h2>
+            <input type="text" id="queryInput" placeholder="Enter your question (e.g., What departments are there?)" value="What departments are there?">
+            <button onclick="testQuery()">Send Query to Database</button>
+            <div id="queryResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>3️⃣ Search Test</h2>
+            <input type="text" id="searchInput" placeholder="Search keyword (e.g., department, map, canteen)" value="department">
+            <button onclick="testSearch()">Search Database</button>
+            <div id="searchResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>4️⃣ Get All Categories</h2>
+            <button onclick="testGetAll()">Get All Data</button>
+            <div id="allResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Connection Status</h2>
+            <div id="statusResult" class="result">
+                Click any test button above to check connection...
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const API_BASE = 'http://localhost:8080/api/knowledge-base';
+
+        function log(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            const timestamp = new Date().toLocaleTimeString();
+            element.innerHTML = `<span class="${className}">[${timestamp}] ${message}</span>`;
+        }
+
+        function updateStatus(message, success) {
+            const statusElement = document.getElementById('statusResult');
+            const indicator = success ? 
+                '<span class="status-indicator status-ok"></span>' : 
+                '<span class="status-indicator status-error"></span>';
+            statusElement.innerHTML = `${indicator}${message}`;
+        }
+
+        async function testHealth() {
+            log('healthResult', '⏳ Testing API health...', 'info');
+            try {
+                const response = await fetch('http://localhost:8080/health');
+                const data = await response.json();
+                
+                if (data.success) {
+                    log('healthResult', `✅ SUCCESS!\n\nAPI Message: ${data.message}\nTimestamp: ${data.timestamp}`, 'success');
+                    updateStatus('✅ Knowledge Base API is running and accessible', true);
+                } else {
+                    log('healthResult', `❌ API returned success=false`, 'error');
+                    updateStatus('❌ API returned unexpected response', false);
+                }
+            } catch (error) {
+                log('healthResult', `❌ ERROR: ${error.message}\n\nPossible causes:\n1. API server not running\n2. Port 8080 is blocked\n3. CORS issue`, 'error');
+                updateStatus('❌ Cannot connect to Knowledge Base API', false);
+            }
+        }
+
+        async function testQuery() {
+            const query = document.getElementById('queryInput').value;
+            log('queryResult', `⏳ Querying database with: "${query}"...`, 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/query`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    let resultText = `✅ SUCCESS! Found ${data.count} relevant entries:\n\n`;
+                    data.data.forEach((item, index) => {
+                        resultText += `${index + 1}. ${item.title} (${item.category})\n`;
+                        resultText += `   ${item.content.substring(0, 150)}...\n\n`;
+                    });
+                    log('queryResult', resultText, 'success');
+                    updateStatus(`✅ Database query successful - ${data.count} results`, true);
+                } else {
+                    log('queryResult', `⚠️ No results found for: "${query}"`, 'info');
+                    updateStatus('⚠️ Query returned no results', false);
+                }
+            } catch (error) {
+                log('queryResult', `❌ ERROR: ${error.message}`, 'error');
+                updateStatus('❌ Database query failed', false);
+            }
+        }
+
+        async function testSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            log('searchResult', `⏳ Searching for: "${searchTerm}"...`, 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(searchTerm)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    let resultText = `✅ SUCCESS! Found ${data.count} entries:\n\n`;
+                    data.data.slice(0, 5).forEach((item, index) => {
+                        resultText += `${index + 1}. [${item.category}] ${item.title}\n`;
+                    });
+                    log('searchResult', resultText, 'success');
+                    updateStatus(`✅ Search successful - ${data.count} results`, true);
+                } else {
+                    log('searchResult', `❌ Search failed`, 'error');
+                    updateStatus('❌ Search failed', false);
+                }
+            } catch (error) {
+                log('searchResult', `❌ ERROR: ${error.message}`, 'error');
+                updateStatus('❌ Search request failed', false);
+            }
+        }
+
+        async function testGetAll() {
+            log('allResult', '⏳ Fetching all categories...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/all`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    let resultText = `✅ SUCCESS! Total entries: ${data.total}\n\n`;
+                    resultText += `Categories (${data.categories.length}):\n`;
+                    data.categories.forEach(cat => {
+                        const count = data.data[cat] ? data.data[cat].length : 0;
+                        resultText += `  • ${cat}: ${count} entries\n`;
+                    });
+                    log('allResult', resultText, 'success');
+                    updateStatus(`✅ Database has ${data.total} total entries across ${data.categories.length} categories`, true);
+                } else {
+                    log('allResult', `❌ Failed to fetch data`, 'error');
+                    updateStatus('❌ Failed to fetch all data', false);
+                }
+            } catch (error) {
+                log('allResult', `❌ ERROR: ${error.message}`, 'error');
+                updateStatus('❌ Failed to fetch all data', false);
+            }
+        }
+
+        // Auto-test on load
+        window.onload = function() {
+            setTimeout(testHealth, 500);
+        };
+    </script>
+</body>
+</html>

@@ -17,7 +17,7 @@ async function finalTest() {
     console.log(`📝 Query: "${query}"`);
     
     try {
-      const res = await fetch('http://localhost:3004/api/knowledge-base/query', {
+  const res = await fetch('http://localhost:8080/api/knowledge-base/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })
@@ -39,7 +39,7 @@ async function finalTest() {
   console.log('   🎉 CHATBOT IS READY!');
   console.log('═══════════════════════════════════════════════════');
   console.log('\n📱 Kiosk App: http://localhost:5173');
-  console.log('🔌 API Server: http://localhost:3004');
+  console.log('🔌 API Server: http://localhost:8080');
   console.log('💾 Database: 16 records active\n');
   console.log('🔧 Fixed Issues:');
   console.log('   ✓ Keyword extraction (removed punctuation)');
