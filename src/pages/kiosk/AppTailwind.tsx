@@ -14,11 +14,15 @@ const AppKiosk: React.FC = () => {
   const [showIntroVideo, setShowIntroVideo] = useState<boolean>(true);
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  //_______________________________________________________________________________________________________________________________
   // Pages array including ChatBot
+  //Defines the pages array where ChatBotPage is index 5
   const pages = [HomePageTailwind, SchedulePageTailwind, ExhibitsPageTailwind, MapPageTailwind, HeatMapPageTailwind, ChatBotPage];
   
   // ChatBot is at index 5
+  //This variable makes it easy to identify or navigate directly to the chatbot page
   const CHATBOT_PAGE_INDEX = 5;
+  //_______________________________________________________________________________________________________________________________
 
   const handleUserActivity = useCallback(() => {
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);

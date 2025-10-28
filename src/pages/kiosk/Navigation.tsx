@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
 import logo from './kioskAssets/university-of-peradeniya-logo-png_seeklogo-480462-removebg-preview.png'
 
+
+//__________________________________________________________________________________________________________________
 interface NavigationTailwindProps {
-  currentPage: number;
-  onPageClick: (pageIndex: number) => void;
-  pages: React.ComponentType[];
+  currentPage: number; //currentPage - tells which page is currently selected (active).
+  onPageClick: (pageIndex: number) => void; //onPageClick - function that changes the page when you click a button
+  pages: React.ComponentType[]; //pages - holds all available page components
 }
+//__________________________________________________________________________________________________________________
+
 
 /**
  * Navigation Component - Tailwind Version
@@ -43,7 +47,13 @@ const NavigationTailwind: React.FC<NavigationTailwindProps> = ({ currentPage, on
         />
       </div>
       
-      {/* Navigation Menu */}
+
+      {/*______________________________________________________________________________________________________________________________________________________________________________________________________________
+       Navigation Menu 
+      It loops through each page.
+      When a button is clicked - onPageClick(index) is called.
+      It updates the active page visually with index === currentPage
+      */}
       <div className="flex flex-col gap-4 flex-1 overflow-y-auto overflow-x-visible px-2 pt-3 pb-0.5 scrollbar-thin scrollbar-thumb-blue-500/60 scrollbar-track-slate-700/30 hover:scrollbar-thumb-blue-500/80">
         {pages.map((_, index) => (
           <div
@@ -69,8 +79,13 @@ const NavigationTailwind: React.FC<NavigationTailwindProps> = ({ currentPage, on
             </span>
           </div>
         ))}
+        {/*
+        _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+        */}
       </div>
       
+
+
       {/* Date and Time Display */}
       <div className="mt-auto pt-4 border-t border-white/15 space-y-3">
         {/* Time Display */}

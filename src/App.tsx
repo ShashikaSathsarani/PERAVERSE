@@ -11,7 +11,12 @@ import CrowdManagement from './pages/Heatmap/CrowdManagement';
 import Dashboard from './pages/Maps/Dashboard';
 
 
-
+//___________________________________________________________________
+/*
+AppContent part is where it’s mounted globally —
+because AppContent wraps all pages and shows components
+ (like Navbar, Footer, or ChatbotIcon) across all routes
+*/
 function AppContent() {
   const location = useLocation();
   const isKiosk = location.pathname.startsWith('/kiosk');
@@ -37,6 +42,8 @@ function AppContent() {
   );
 }
 
+//________________________________________________________________________________________________
+//Root component where the ChatbotIcon is mounted and ensures icon is available across all routes
 function App() {
   return (
     <Router>
@@ -44,5 +51,6 @@ function App() {
     </Router>
   );
 }
+//________________________________________________________________________________________________
 
 export default App;

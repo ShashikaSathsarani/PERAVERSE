@@ -1,3 +1,9 @@
+/*
+This code creates a floating chatbot button that appears at the bottom-right corner of the kiosk screen.
+It bounces, glows, and shows a small “Ask me anything” tooltip when hovered.
+*/
+
+
 import { useState } from 'react'
 
 interface ChatBotButtonKioskProps {
@@ -5,17 +11,25 @@ interface ChatBotButtonKioskProps {
 }
 
 const ChatBotButtonKiosk: React.FC<ChatBotButtonKioskProps> = ({ onNavigateToChatBot }) => {
+
+  //Keeps track of whether the mouse is over the button or not
+  //Used to show tooltip and enlarge the button
   const [isHovered, setIsHovered] = useState(false)
 
   return (
     <>
+      {/*Places the button fixed at the bottom-right corner of the screen*/}
       <div className="fixed bottom-6 right-6 z-50">
+
         {/* Tooltip - appears on hover */}
         <div 
           className={`absolute bottom-full right-0 mb-3 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg shadow-xl whitespace-nowrap transition-all duration-300 ${
             isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
           }`}
         >
+          {/* This is the small text bubble that says “Ask me anything”
+          It only appears when the button is hovered
+          */}
           Ask me anything
           {/* Tooltip arrow */}
           <div className="absolute top-full right-6 w-0 h-0" style={{
@@ -25,7 +39,10 @@ const ChatBotButtonKiosk: React.FC<ChatBotButtonKioskProps> = ({ onNavigateToCha
           }}></div>
         </div>
 
-        {/* Floating Button */}
+        {/* Floating Button
+        When clicked - calls the onNavigateToChatBot() function (goes to ChatBot page)
+        When hovered - shows tooltip and enlarges the button
+        */}
         <button
           onClick={onNavigateToChatBot}
           onMouseEnter={() => setIsHovered(true)}
@@ -35,7 +52,9 @@ const ChatBotButtonKiosk: React.FC<ChatBotButtonKioskProps> = ({ onNavigateToCha
           }`}
           aria-label="Open ChatBot"
         >
-          {/* Chat Icon */}
+          {/* Chat Icon
+          This draws the chat bubble icon inside the button
+          */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`transform transition-all duration-300 ${isHovered ? 'w-10 h-10 rotate-12' : 'w-8 h-8'}`}
@@ -51,13 +70,18 @@ const ChatBotButtonKiosk: React.FC<ChatBotButtonKioskProps> = ({ onNavigateToCha
             />
           </svg>
 
-          {/* Pulse Animation Ring - continuous bounce */}
+          {/* Pulse Animation Ring - continuous bounce
+          Creates two glowing rings that repeatedly expand and fade, like a pulse effect
+          */}
           <span className="pulse-ring absolute inset-0 rounded-full bg-blue-400 opacity-60"></span>
           <span className="pulse-ring-delayed absolute inset-0 rounded-full bg-purple-400 opacity-40"></span>
         </button>
       </div>
 
-      {/* Inline styles for animations */}
+      {/* Inline styles for animations
+      bounce-gentle: makes the button gently bounce up and down
+      pulse-scale: makes the glowing ring expand and fade continuously
+      */}
       <style dangerouslySetInnerHTML={{
         __html: `
           @keyframes pulse-scale {

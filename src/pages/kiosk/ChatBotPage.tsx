@@ -175,7 +175,7 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
   }
 
 
-  /*________________________________________________________________________________________________________
+  /*
   Everything below is HTML-like JSX that builds the chatbot window
   */
   return (
