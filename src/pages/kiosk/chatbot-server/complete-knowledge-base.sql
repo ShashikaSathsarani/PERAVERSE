@@ -16,6 +16,12 @@
 -- First, clear existing data to avoid duplicates (optional - comment out if you want to keep old data)
 -- TRUNCATE knowledge_base RESTART IDENTITY CASCADE;
 
+--****************************************************************************************************************--
+--It connects your chatbot to Google’s Gemini AI model and your knowledge base (database)--
+--the chatbot can answer questions about the EngEx exhibition, departments, events, and campus info--
+--****************************************************************************************************************--
+
+
 -- ================================================================
 -- SECTION 1: ABOUT ENGEX EXHIBITION
 -- ================================================================
@@ -35,8 +41,12 @@ Key Points:
 • Organized by undergraduate students
 • Open to public, students, and industry professionals
 • Includes competitions, workshops, exhibitions, and career opportunities',
+
+    --Used by chatbot search logic to match user queries by keywords--
     ARRAY['engex', 'engineering exhibition', 'what is', 'about', 'event', 'annual', 'flagship'],
     100,
+    --Marks the entry as active--
+    --If it were false, the chatbot would ignore it--
     true
 ),
 
