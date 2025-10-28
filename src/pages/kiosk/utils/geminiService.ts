@@ -1,13 +1,39 @@
+/**
+ * This service:
+        Connects to the Google Gemini API (Google’s AI model).
+        Uses the knowledge base data from your Supabase database.
+        Creates a smart AI assistant that:
+                  Answers only using official knowledge base information.
+                  Greets users politely.
+                  Gives detailed, formatted responses
+                  Falls back to simple messages if something fails
+ */
+
+//Imports Google’s Gemini AI library
+//Imports your knowledgeBaseService, which retrieves info from the database
 import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai'
 import { knowledgeBaseService } from './knowledgeBaseService'
 
+//genAI - the Gemini AI client
+//model - the specific model instance used to generate answers
 class GeminiService {
   private genAI: GoogleGenerativeAI | null = null
   private model: GenerativeModel | null = null
 
+  //Gets the API key from your environment variables (.env)
   constructor() {
     const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_API_KEY
     
+
+    /**
+     * If a valid API key is found:
+          Connects to the Gemini API.
+          Selects the “gemini-2.0-flash-exp” model (fast and efficient).
+          Configures it to:
+                    Be factual (temperature: 0.1)
+                    Pick the best answers only (topK: 1, topP: 0.1)
+                    Allow long detailed replies (maxOutputTokens: 4096)
+     */
     if (apiKey && apiKey !== 'your_api_key_here') {
       this.genAI = new GoogleGenerativeAI(apiKey)
       this.model = this.genAI.getGenerativeModel({ 
@@ -24,6 +50,7 @@ class GeminiService {
 
   /**
    * Get fallback knowledge when database is unavailable
+   * Shows a message when the knowledge base can’t be reached
    */
   private getFallbackKnowledge(): string {
     return `
@@ -34,6 +61,8 @@ If the issue persists, contact the event staff for assistance.
 
   /**
    * Check if the message is a greeting
+   * Checks if the user said a greeting (like “hi”, “hello”).
+    Used to respond with a friendly introduction instead of calling Gemini
    */
   private isGreeting(message: string): boolean {
     const greetings = ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening',]
@@ -47,6 +76,9 @@ If the issue persists, contact the event staff for assistance.
 
   /**
    * Get introduction/greeting response about EngEx and the chatbot
+   * Returns a warm welcome and explains what the chatbot can do.
+      It lists what kind of info is available (departments, events, etc.)
+      and gives example questions
    */
   private getIntroductionResponse(): string {
     return `**Hello and Welcome to EngEx 2025!**
@@ -79,11 +111,17 @@ Feel free to ask me anything about the Faculty of Engineering or the EngEx 2025 
 What would you like to know?`
   }
 
+ /*
+  * This is the core of the chatbot logic.
+    It handles the user’s question (prompt) and returns a Gemini AI response
+  */
   async generateResponse(prompt: string): Promise<string> {
+    //If no Gemini model is configured
     if (!this.model) {
       return this.getFallbackResponse()
     }
 
+    //If it’s a greeting
     if (this.isGreeting(prompt)) {
       return this.getIntroductionResponse()
     }
