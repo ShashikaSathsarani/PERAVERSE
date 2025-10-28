@@ -1,25 +1,3 @@
--- ================================================================
--- COMPLETE KNOWLEDGE BASE FOR ENGEX CHATBOT
--- Faculty of Engineering, University of Peradeniya
--- Combined comprehensive database for all chatbot information
--- ================================================================
--- 
--- Instructions:
--- 1. Go to your Supabase project: https://nzomtfszluifyvfmsoei.supabase.co
--- 2. Click on "SQL Editor" in the left sidebar
--- 3. Click "New Query"
--- 4. Copy and paste this ENTIRE file
--- 5. Click "Run" to execute
--- 6. The chatbot will immediately have access to all this information!
--- ================================================================
-
--- First, clear existing data to avoid duplicates (optional - comment out if you want to keep old data)
--- TRUNCATE knowledge_base RESTART IDENTITY CASCADE;
-
--- ================================================================
--- SECTION 1: ABOUT ENGEX EXHIBITION
--- ================================================================
-
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
 (
@@ -65,9 +43,6 @@ Exhibition Features:
     true
 );
 
--- ================================================================
--- SECTION 2: 8 ENGINEERING DEPARTMENTS (Updated from eng.pdn.ac.lk)
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -129,9 +104,6 @@ VALUES
     true
 );
 
--- ================================================================
--- SECTION 3: FACULTY HISTORY & INFORMATION
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -254,10 +226,6 @@ Website: eng.pdn.ac.lk/undergraduate-programme-2/',
     85,
     true
 );
-
--- ================================================================
--- SECTION 4: CAMPUS MAP & BUILDINGS (Detailed)
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -396,9 +364,6 @@ Tips:
     true
 );
 
--- ================================================================
--- SECTION 5: FACILITIES & SERVICES
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -495,9 +460,6 @@ During EngEx:
     true
 );
 
--- ================================================================
--- SECTION 6: EMERGENCY CONTACTS
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -529,11 +491,7 @@ In Case of Emergency:
     true
 );
 
--- ================================================================
--- SECTION 7: 5-DAY EXHIBITION SCHEDULE (DETAILED)
--- ================================================================
 
--- Overview
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
 (
@@ -573,7 +531,7 @@ For specific event details, ask about individual days or event types!',
     true
 );
 
--- DAY 1 EVENTS (Detailed with time and venue)
+-- DAY 1 EVENTS 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
 (
@@ -1057,10 +1015,6 @@ Spectators: Welcome at all competitions (free)',
     true
 );
 
--- ================================================================
--- SECTION 8: ROCK AREA (Campus Landmark)
--- ================================================================
-
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
 (
@@ -1104,9 +1058,7 @@ During EngEx:
     true
 );
 
--- ================================================================
 -- SECTION 9: VISITOR INFORMATION
--- ================================================================
 
 INSERT INTO knowledge_base (category, subcategory, title, content, keywords, priority, is_active)
 VALUES 
@@ -1157,9 +1109,6 @@ Duration:
     true
 );
 
--- ================================================================
--- SECTION 10: SUCCESS MESSAGE
--- ================================================================
 
 -- Final count message
 SELECT 

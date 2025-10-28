@@ -13,10 +13,10 @@ class GeminiService {
       this.model = this.genAI.getGenerativeModel({ 
         model: 'gemini-2.0-flash-exp',
         generationConfig: {
-          temperature: 0.1,  // Very low temperature for consistent, factual responses
-          topK: 1,           // Only consider the top result for maximum consistency
-          topP: 0.1,         // Low diversity for deterministic answers
-          maxOutputTokens: 4096,  // Increased to allow longer, detailed responses
+          temperature: 0.1,  // very factual, not creative
+          topK: 1,           // always pick best answer
+          topP: 0.1,         // consistent responses
+          maxOutputTokens: 4096,  // detailed, long answers allowedI
         }
       })
     }
@@ -36,7 +36,7 @@ If the issue persists, contact the event staff for assistance.
    * Check if the message is a greeting
    */
   private isGreeting(message: string): boolean {
-    const greetings = ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening', 'howdy', 'hola', 'namaste']
+    const greetings = ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening',]
     const lowerMessage = message.toLowerCase().trim()
     return greetings.some(greeting => 
       lowerMessage === greeting || 
@@ -49,40 +49,32 @@ If the issue persists, contact the event staff for assistance.
    * Get introduction/greeting response about EngEx and the chatbot
    */
   private getIntroductionResponse(): string {
-    return `👋 **Hello and Welcome to EngEx 2025!**
+    return `**Hello and Welcome to EngEx 2025!**
 
-I'm your AI-powered assistant for the **Faculty of Engineering Exhibition** at the **University of Peradeniya**.
+I'm your AI-powered assistant for the Faculty of Engineering Exhibition at the University of Peradeniya.
 
-🎯 **How I Can Help You:**
+How I Can Help You:
 
 I have access to comprehensive information about:
 
-• **🏛️ Faculty Information** - History, departments, facilities, and academic programs
-• **📅 Exhibition Events** - Schedule, timings, venues, and event descriptions
-• **🏢 Departments** - All 8 engineering departments and their specializations
-• **📍 Campus Map** - Building locations, zones, and navigation help
-• **📞 Contact Information** - Phone numbers, emails, and office locations
-• **👥 Staff & Faculty** - Department heads, deans, and key contacts
-• **🎓 Academic Programs** - Undergraduate and postgraduate programs
-• **🔬 Research & Facilities** - Labs, equipment, and research areas
+• Faculty Information - History, departments, facilities, and academic programs
+• Exhibition Events - Schedule, timings, venues, and event descriptions
+• Departments - All 8 engineering departments and their specializations
+• Campus Map - Building locations, zones, and navigation help
+• Contact Information - Phone numbers, emails, and office locations
+• Staff & Faculty - Department heads, deans, and key contacts
+• Academic Programs - Undergraduate and postgraduate programs
+• Research & Facilities - Labs, equipment, and research areas
 
-💡 **What Makes Me Special:**
+    Try Asking Me:
 
-✅ All information comes directly from our official knowledge base
-✅ I provide detailed, point-wise answers with complete information
-✅ Real-time data connected to our database
-✅ No generic responses - only accurate faculty information
-
-🗣️ **Try Asking Me:**
-
-• "What events are happening today?"
 • "Tell me about the departments"
 • "Where is the Dean's office?"
 • "What is the exhibition schedule?"
 • "Show me the campus map"
 • "Contact information for Engineering Mathematics department"
 
-**Feel free to ask me anything about the Faculty of Engineering or the EngEx 2025 exhibition!** 🚀
+Feel free to ask me anything about the Faculty of Engineering or the EngEx 2025 exhibition!
 
 What would you like to know?`
   }
@@ -92,7 +84,6 @@ What would you like to know?`
       return this.getFallbackResponse()
     }
 
-    // Check if this is a greeting - provide introduction
     if (this.isGreeting(prompt)) {
       return this.getIntroductionResponse()
     }
@@ -138,7 +129,7 @@ Knowledge Base: Contains the answer
 
 YOUR RESPONSE STYLE - MUST FOLLOW:
 ✅ ALWAYS give DETAILED, COMPREHENSIVE answers
-✅ Use BULLET POINTS (•) to list information clearly
+✅ Use NUMBERED LISTS (1., 2., 3.) for main items and BULLET POINTS (•) for sub-items
 ✅ Include ALL relevant details from the knowledge base
 ✅ For lists (like departments), show ALL items, not just a few examples
 ✅ For events, include: time, venue, description, and other details from knowledge base
@@ -147,21 +138,65 @@ YOUR RESPONSE STYLE - MUST FOLLOW:
 ✅ Quote directly from the knowledge base content
 ✅ Be thorough - don't skip information
 ✅ When relevant, mention "Faculty of Engineering, University of Peradeniya"
+✅ ADD BLANK LINES between sections for better readability
+✅ ADD BLANK LINES between numbered/bullet point groups
+✅ Use double line breaks (\\n\\n) to separate different topics
+✅ DO NOT use ** for bold - use plain text with clear formatting
+✅ Use NUMBERED LISTS for main categories (departments, events, etc.)
+
+FORMATTING RULES - CLEAN TEXT STYLING:
+1. Department names → Use numbers: 1. Civil Engineering, 2. Mechanical Engineering
+2. Section headings → Use text with emojis: 🎯 Focus Areas:, 📞 Contact:
+3. Sub-items → Use bullet points (•) under numbered items
+4. No asterisks or bold markers - just clean, structured text
+5. Add blank lines between numbered items for spacing
+6. IMPORTANT: Remove ALL ** symbols from knowledge base content - they don't render as bold
+7. If knowledge base has **text**, show it as plain text without the asterisks
 
 EXAMPLE FORMAT FOR DETAILED ANSWERS:
 When user asks a question:
-✅ GOOD FORMAT:
-"[Opening statement from knowledge base]
+✅ GOOD FORMAT (Clean, No Bold):
+"The Faculty of Engineering at University of Peradeniya has 8 Engineering Departments:
 
-[Main points in bullet format]
-• Point 1 with details
-• Point 2 with details
+1. Civifgfl Engineering
+   • Infrastructure and construction projects
+   • Sustainable development solutions
+   • Structural engineering designs
+   • Transportation systems
+   • Environmental engineering
+
+2. Mechanical Engineering
+   • Robotics and automation
+   • Manufacturing innovations
+   • Thermodynamics and heat transfer
+   • CAD/CAM and design
+   • Machine design and mechanics
+
+3. Electrical & Electronic Engineering
+   • Power systems and generation
+   • Electronics and circuit design
+   • Renewable energy solutions
+   • Control systems and automation
+   • Telecommunications
+• **Electronics** and circuit design
+• **Renewable energy** solutions"
+
+**Section 2:**
 • Point 3 with details
+• Point 4 with details
 
 [Closing statement or additional info]"
 
+FORMATTING RULES:
+1. Add blank line BEFORE each major section heading
+2. Add blank line AFTER section heading before bullet points
+3. Group related bullet points together
+4. Add blank line between different bullet point groups
+5. Use **bold** for section headings (e.g., **Civil Engineering**, **Mechanical Engineering**)
+
 ❌ BAD (too short): Give partial answer or skip information
-✅ GOOD (detailed): Include ALL information from knowledge base
+❌ BAD (no spacing): All text bunched together without line breaks
+✅ GOOD (detailed): Include ALL information from knowledge base with proper spacing
 
 📋 IF QUESTION IS OUTSIDE THE KNOWLEDGE BASE OR NOT ABOUT ENGEX:
 If the user asks about topics NOT related to EngEx, engineering, or the Faculty:
@@ -234,5 +269,3 @@ User: ${prompt}`
 }
 
 export const geminiService = new GeminiService()
-
-//new file of geminiService.ts
