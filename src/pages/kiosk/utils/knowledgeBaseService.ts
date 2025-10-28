@@ -1,11 +1,22 @@
-// knowledgeBaseService.ts
+/*
+This is  a service class that connects the chatbot (frontend) 
+to the knowledge base backend API (running on port 8080)
+ Instead of keeping data inside files, this fetches answers from the database through that API
+*/
+
 // Service to fetch knowledge from database instead of markdown file
 
-const KB_API_URL = 'http://localhost:8080/api/knowledge-base';
-// Host-level API base (without the /api/knowledge-base path) for health and conversation endpoints
+
+//the main backend endpoint for knowledge queries
+const KB_API_URL = 'http://localhost:8080/api/knowledge-base'; 
+
+// the base URL (used for health check and saving chats)
 const API_HOST = KB_API_URL.replace('/api/knowledge-base', '');
 
-interface KnowledgeBaseItem {
+//__________________________________________________________________________________________________
+//These define what data looks like
+
+interface KnowledgeBaseItem { //one record from the knowledge base (title, content, etc.)
   id: number;
   category: string;
   subcategory: string;
@@ -15,13 +26,16 @@ interface KnowledgeBaseItem {
   priority: number;
 }
 
-interface QueryResponse {
+interface QueryResponse { //what comes back from the backend when chatbot searches
   success: boolean;
   count: number;
   data: KnowledgeBaseItem[];
   query?: string;
 }
+//__________________________________________________________________________________________________
 
+
+//This class has all the functions the chatbot uses to talk with the backend
 class KnowledgeBaseService {
   private sessionId: string;
 
@@ -34,8 +48,14 @@ class KnowledgeBaseService {
     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
+
+
+  //_____________________________________________________________________________________________________
   /**
-   * Query knowledge base for relevant information
+   * This sends the user’s message to the backend (at /api/knowledge-base/query)
+   * The backend searches the Supabase knowledge_base table for matches
+   * Then it returns related content (titles + answers)
+   * The function combines all that into a readable format for the chatbot
    */
   async queryKnowledge(userMessage: string): Promise<string> {
     try {
@@ -63,8 +83,10 @@ class KnowledgeBaseService {
     }
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Search by category
+   * Gets all knowledge base items from one category (like “Events”, “Facilities”)
    */
   async getByCategory(category: string): Promise<KnowledgeBaseItem[]> {
     try {
@@ -78,8 +100,10 @@ class KnowledgeBaseService {
     }
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Search with keywords
+   * Similar to queryKnowledge(), but also allows filtering by category
    */
   async search(query: string, category?: string): Promise<KnowledgeBaseItem[]> {
     try {
@@ -97,8 +121,11 @@ class KnowledgeBaseService {
     }
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Get all knowledge organized by category
+   * Fetches everything in the database, organized by category
+   * Used if chatbot needs a full list of data
    */
   async getAllKnowledge(): Promise<Record<string, KnowledgeBaseItem[]>> {
     try {
@@ -112,8 +139,11 @@ class KnowledgeBaseService {
     }
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Save conversation to database for analytics
+   * Saves the chat between user and bot into the database (via /api/conversations/save)
+   * This helps us to analyze how people used the chatbot later
    */
   async saveConversation(
     userMessage: string, 
@@ -138,8 +168,11 @@ class KnowledgeBaseService {
     }
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Get context for AI prompt based on user query
+   * Gets relevant knowledge from the backend
+   * Then builds a text summary that helps the AI answer more accurately
    */
   async getContextForAI(userMessage: string): Promise<string> {
     const knowledge = await this.queryKnowledge(userMessage);
@@ -157,8 +190,11 @@ Use the above information to provide an accurate and helpful response.
 `;
   }
 
+  //_____________________________________________________________________________________________________
   /**
    * Check if API is available
+   * Calls the /health endpoint to check if the backend is alive
+   * Returns true if backend works, otherwise false
    */
   async isAvailable(): Promise<boolean> {
     try {
@@ -173,7 +209,14 @@ Use the above information to provide an accurate and helpful response.
     }
   }
 }
+//_____________________________________________________________________________________________________
 
 // Export singleton instance
+//Creates one reusable instance for the chatbot to use everywhere
 export const knowledgeBaseService = new KnowledgeBaseService();
 export default knowledgeBaseService;
+
+/*
+Where this runs: in the browser (inside the chatbot app)
+Main job: talks to the backend API and displays results to the user
+*/

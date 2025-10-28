@@ -155,6 +155,10 @@ app.listen(PORT, '127.0.0.1', () => {
 module.exports = app;
 
 /*
+Where this runs: on the server (Node.js)
+Main job: talks to the database and gives data to frontend
+
+Steps:
 1. Chatbot sends question - backend
 2. Backend reads it
 3. Backend searches Supabase (database)
