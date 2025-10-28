@@ -32,9 +32,69 @@ If the issue persists, contact the event staff for assistance.
 `
   }
 
+  /**
+   * Check if the message is a greeting
+   */
+  private isGreeting(message: string): boolean {
+    const greetings = ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening', 'howdy', 'hola', 'namaste']
+    const lowerMessage = message.toLowerCase().trim()
+    return greetings.some(greeting => 
+      lowerMessage === greeting || 
+      lowerMessage.startsWith(greeting + ' ') ||
+      lowerMessage.startsWith(greeting + ',')
+    )
+  }
+
+  /**
+   * Get introduction/greeting response about EngEx and the chatbot
+   */
+  private getIntroductionResponse(): string {
+    return `👋 **Hello and Welcome to EngEx 2025!**
+
+I'm your AI-powered assistant for the **Faculty of Engineering Exhibition** at the **University of Peradeniya**.
+
+🎯 **How I Can Help You:**
+
+I have access to comprehensive information about:
+
+• **🏛️ Faculty Information** - History, departments, facilities, and academic programs
+• **📅 Exhibition Events** - Schedule, timings, venues, and event descriptions
+• **🏢 Departments** - All 8 engineering departments and their specializations
+• **📍 Campus Map** - Building locations, zones, and navigation help
+• **📞 Contact Information** - Phone numbers, emails, and office locations
+• **👥 Staff & Faculty** - Department heads, deans, and key contacts
+• **🎓 Academic Programs** - Undergraduate and postgraduate programs
+• **🔬 Research & Facilities** - Labs, equipment, and research areas
+
+💡 **What Makes Me Special:**
+
+✅ All information comes directly from our official knowledge base
+✅ I provide detailed, point-wise answers with complete information
+✅ Real-time data connected to our database
+✅ No generic responses - only accurate faculty information
+
+🗣️ **Try Asking Me:**
+
+• "What events are happening today?"
+• "Tell me about the departments"
+• "Where is the Dean's office?"
+• "What is the exhibition schedule?"
+• "Show me the campus map"
+• "Contact information for Engineering Mathematics department"
+
+**Feel free to ask me anything about the Faculty of Engineering or the EngEx 2025 exhibition!** 🚀
+
+What would you like to know?`
+  }
+
   async generateResponse(prompt: string): Promise<string> {
     if (!this.model) {
       return this.getFallbackResponse()
+    }
+
+    // Check if this is a greeting - provide introduction
+    if (this.isGreeting(prompt)) {
+      return this.getIntroductionResponse()
     }
 
     try {
@@ -103,12 +163,39 @@ When user asks a question:
 ❌ BAD (too short): Give partial answer or skip information
 ✅ GOOD (detailed): Include ALL information from knowledge base
 
-📋 IF QUESTION IS OUTSIDE THE KNOWLEDGE BASE:
-If the user asks about topics NOT in the knowledge base:
-1. Politely acknowledge their question
-2. Explain you can only answer based on the knowledge base
-3. Suggest topics you CAN help with based on what's in the knowledge base
-4. Offer to help with available information
+📋 IF QUESTION IS OUTSIDE THE KNOWLEDGE BASE OR NOT ABOUT ENGEX:
+If the user asks about topics NOT related to EngEx, engineering, or the Faculty:
+1. DO NOT answer questions about: weather, sports, politics, general knowledge, other universities, etc.
+2. Politely explain: "I'm specifically designed for the EngEx Exhibition"
+3. Redirect them: "Please ask me anything about the EngEx 2025 Exhibition, Faculty of Engineering, or University of Peradeniya"
+4. Suggest example questions they CAN ask about EngEx
+
+EXAMPLE RESPONSES FOR OFF-TOPIC QUESTIONS:
+
+User asks about weather/sports/politics/general topics:
+✅ CORRECT RESPONSE:
+"I appreciate your question, but I'm specifically designed to help with the **EngEx 2025 Exhibition** at the Faculty of Engineering, University of Peradeniya.
+
+I can only answer questions about:
+• EngEx exhibition events and schedule
+• Engineering departments and programs
+• Faculty facilities and campus map
+• Contact information and staff
+• Academic programs and research
+
+**Please ask me anything about the EngEx Exhibition or Faculty of Engineering!** 
+
+For example:
+• What events are happening today?
+• Tell me about the engineering departments
+• Where is the exhibition venue?
+• What is the schedule for EngEx?
+
+How can I help you with EngEx information? 🎓"
+
+❌ WRONG: Answer general knowledge questions or topics outside EngEx/Engineering
+
+🎯 REMEMBER: You are ONLY for EngEx Exhibition assistance - redirect all other topics!
 
 Now answer this question using the knowledge base content above:
 User: ${prompt}`

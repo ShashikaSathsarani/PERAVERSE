@@ -20,9 +20,7 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: geminiService.isApiKeyConfigured() 
-        ? 'Hello! 👋 Welcome to EngEx! I\'m Gemini, your AI assistant for this amazing engineering exhibition. I\'m here to help you navigate the campus, find events, and discover all the incredible projects on display. What would you like to explore first?'
-        : 'Hello! 👋 Welcome to EngEx! I\'m your friendly assistant for this amazing engineering exhibition. I\'m here to help you navigate the campus, find events, and discover all the incredible projects on display. What would you like to explore first?',
+      text: 'Hello! 👋 Welcome to EngEx! I\'m your AI assistant for this amazing engineering exhibition. I\'m here to help you navigate the campus, find events, and discover all the incredible projects on display. What would you like to explore first?',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -133,7 +131,7 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
         <div className="flex items-center gap-2">
           <div className={`w-2 h-2 rounded-full ${geminiService.isApiKeyConfigured() ? 'bg-green-400 animate-pulse' : 'bg-yellow-400'}`}></div>
           <span className="text-xs text-slate-400">
-            {geminiService.isApiKeyConfigured() ? 'Gemini 2.0' : 'Basic Mode'}
+            {geminiService.isApiKeyConfigured() ? 'AI Active' : 'Basic Mode'}
           </span>
         </div>
       </div>
