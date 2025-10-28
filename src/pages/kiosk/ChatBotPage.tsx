@@ -1,43 +1,84 @@
+/*
+________________________________________________________
+1. Shows a welcome message from the bot
+2. Lets users type or click a question
+3. Sends that question to the Gemini AI
+4. Shows the bot’s reply (and the map if needed)
+5. Scrolls down automatically
+6. Shows typing dots while waiting for a reply
+________________________________________________________
+*/
+
+
+/*useState - to store changing values (like messages and input)
+useRef - to reference DOM elements (like for scrolling)
+useEffect - to run code automatically when something changes*/
 import { useState, useRef, useEffect } from 'react'
+
+//Imports icons from the lucide-react library - These are SVG icons used for buttons and avatars
 import { Send, Bot, User, Sparkles, HelpCircle, MapPin, Calendar, Building } from 'lucide-react'
+
+//Imports our custom Gemini AI service that handles getting AI responses
 import { geminiService } from './utils/geminiService'
+
+//mports your CSS styling file for animations, colors
 import './ChatBot.css'
+
+//Imports an image of the campus map so it can be displayed in chat
 import mapImage from './kioskAssets/map.jpg'
 
+//Defines what each message looks like
 interface Message {
-  id: string;
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: Date;
+  id: string;  //unique number or string
+  text: string;  //the message content
+  sender: 'user' | 'bot';  //whether it's from the user or bot
+  timestamp: Date;  //the time message was sent
   imageUrl?: string; // Optional image to display in the message
 }
 
+//Defines what properties (props) this component can receive
 interface ChatBotPageProps {
   onNavigateToChatBot?: () => void;
 }
 
+//Starts the ChatBotPage component - a React function that displays the chatbot
 const ChatBotPage: React.FC<ChatBotPageProps> = () => {
+
+  //Creates a state variable called messages that stores all chat messages
+  //It starts with one message - the bot’s welcome message
   const [messages, setMessages] = useState<Message[]>([
     {
+
+      /*Checks if Gemini API key exists
+      If yes - shows “I’m Gemini, your AI assistant...”
+      If no - shows a simpler message */
       id: '1',
       text: 'Hello! 👋 Welcome to EngEx! I\'m your AI assistant for this amazing engineering exhibition. I\'m here to help you navigate the campus, find events, and discover all the incredible projects on display. What would you like to explore first?',
       sender: 'bot',
-      timestamp: new Date()
+      timestamp: new Date() //Marks the sender as bot and adds current time
     }
   ])
+
+  //Stores what the user is typing in the chat box
   const [inputText, setInputText] = useState<string>('')
+
+  //Tells whether the bot is currently typing (to show the typing dots)
   const [isTyping, setIsTyping] = useState<boolean>(false)
+
+  //A reference to the bottom of the chat window, used for auto-scrolling
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Predefined quick questions
   const quickQuestions = [
-    { icon: MapPin, text: 'Where is the main auditorium?', category: 'navigation' },
+    { icon: MapPin, text: 'Where is the main auditorium of the faculty?', category: 'navigation' },
     { icon: Calendar, text: 'What events are happening today?', category: 'events' },
     { icon: Building, text: 'Show me the campus map', category: 'map' },
     { icon: HelpCircle, text: 'How do I get to the canteen?', category: 'help' }
   ]
 
-  // Get bot response using Gemini AI or fallback responses
+  /*Sends user’s question to the Gemini AI
+  Waits for a reply using await
+  If there’s an error, logs it and returns a friendly apology */
   const getBotResponse = async (userMessage: string): Promise<string> => {
     try {
       return await geminiService.generateResponse(userMessage)
@@ -47,17 +88,22 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
     }
   }
 
+  //Scrolls the chat to the very bottom smoothly- Uses the reference (messagesEndRef) created earlier
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  //Every time the messages list changes (new message added), this function runs
+  //It calls scrollToBottom() to keep the latest chat visible
   useEffect(() => {
     scrollToBottom()
   }, [messages])
 
+  //If input is empty - stop
   const handleSendMessage = async () => {
     if (!inputText.trim()) return
 
+    //Creates a new message object for the user
     const userMessage: Message = {
       id: Date.now().toString(),
       text: inputText,
@@ -65,20 +111,27 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
       timestamp: new Date()
     }
 
+    /*Adds the user’s message to the chat
+    Clears the input field
+    Turns on typing animation (isTyping = true) */
     const currentInput = inputText
     setMessages(prev => [...prev, userMessage])
     setInputText('')
     setIsTyping(true)
 
     try {
-      // Get bot response from Gemini AI
+      // Gets the bot’s reply from Gemini AI
       const responseText = await getBotResponse(currentInput)
       
-      // Check if the response should include the campus map
+      // Check if the response should include the faculty map
+      //If yes, we’ll display the map image
       const shouldShowMap = currentInput.toLowerCase().includes('map') || 
                            currentInput.toLowerCase().includes('show') && currentInput.toLowerCase().includes('campus') ||
                            currentInput.toLowerCase().includes('where is')
       
+      
+      //Creates the bot’s reply message
+      //Includes the map image if needed
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: responseText,
@@ -86,7 +139,11 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
         timestamp: new Date(),
         imageUrl: shouldShowMap ? mapImage : undefined
       }
+
+      //Adds bot’s reply to the chat
       setMessages(prev => [...prev, botResponse])
+
+      //If something goes wrong, shows an apology. Finally, stops typing dots
     } catch (error) {
       console.error('Error sending message:', error)
       const errorResponse: Message = {
@@ -101,11 +158,15 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
     }
   }
 
+  //Fills input with the question text
+  //Sends it automatically after 0.1 second
   const handleQuickQuestion = (questionText: string) => {
     setInputText(questionText)
     setTimeout(() => handleSendMessage(), 100)
   }
 
+  //If we press Enter (without Shift), it sends the message
+  //Shift + Enter = new line
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -113,16 +174,23 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
     }
   }
 
+
+  /*________________________________________________________________________________________________________
+  Everything below is HTML-like JSX that builds the chatbot window
+  */
   return (
     <div className="h-full w-full flex flex-col animate-fadeIn">
       {/* Header */}
+
+      {/* Top bar with bot icon and name*/}
+      {/*Shows Gemini API status (green = active, yellow = basic mode)*/}
       <div className="flex items-center justify-between pb-6 border-b border-white/20">
         <div className="flex items-center gap-4">
           <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg">
             <Sparkles className="h-8 w-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white mb-1">EngEx AI Assistant</h1>
+            <h1 className="text-3xl font-bold text-white mb-1">SmartTalk EngEx AI Assistant</h1>
             <p className="text-slate-300">Ask me anything about the exhibition</p>
           </div>
         </div>
@@ -136,7 +204,10 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
         </div>
       </div>
 
-      {/* Quick Questions */}
+      {/* Quick Questions
+      Shown only at the beginning (when you haven’t chatted yet)
+      Displays clickable buttons for common questions
+      */}
       {messages.length <= 1 && (
         <div className="py-6">
           <h3 className="text-lg font-semibold text-slate-200 mb-4">Quick Questions</h3>
@@ -157,7 +228,14 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
         </div>
       )}
 
-      {/* Chat Messages */}
+      {/* Chat Messages
+      Main chat area
+
+      Loops through messages:
+            If sender = “bot”, message appears on left
+            If sender = “user”, message appears on right
+            Shows message text, optional image, and time
+      */}
       <div className="flex-1 overflow-y-auto py-6 space-y-4 chat-scrollbar">
         {messages.map((message) => (
           <div
@@ -208,7 +286,10 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
           </div>
         ))}
 
-        {/* Typing Indicator */}
+        {/* Typing Indicator
+        Shows bot’s typing animation when waiting for AI reply
+        Uses three dots with animation-delay classes
+        */}
         {isTyping && (
           <div className="flex gap-4 justify-start">
             <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -227,7 +308,12 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area */}
+      {/* Input Area
+      Textbox for typing messages
+      Send button beside it
+      Disabled if empty or bot is typing
+      Below it: small text “Press Enter to send • Shift + Enter for new line”
+      */}
       <div className="border-t border-white/20 pt-4">
         <div className="relative">
           <textarea
@@ -256,4 +342,5 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
   )
 }
 
+{/*Exports this component so you can use <ChatBotPage /> elsewhere*/}
 export default ChatBotPage
