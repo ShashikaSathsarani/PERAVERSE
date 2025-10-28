@@ -286,7 +286,8 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
           </div>
         ))}
 
-        {/* Typing Indicator
+        {/*___________________________________________________________________________________________________________________________________________________
+         Typing Indicator
         Shows bot’s typing animation when waiting for AI reply
         Uses three dots with animation-delay classes
         */}
@@ -304,6 +305,8 @@ const ChatBotPage: React.FC<ChatBotPageProps> = () => {
             </div>
           </div>
         )}
+        {/*___________________________________________________________________________________________________________________________________________________
+        */}
 
         <div ref={messagesEndRef} />
       </div>
