@@ -219,4 +219,10 @@ export default knowledgeBaseService;
 /*
 Where this runs: in the browser (inside the chatbot app)
 Main job: talks to the backend API and displays results to the user
+
+    Sends the user’s message to the backend API
+    Receives the results (answers) and shows them in the chatbot
+    Checks if the backend is running (/health)
+    Saves chat history (user question + bot reply)
+    Can also get data by category or all knowledge
 */
