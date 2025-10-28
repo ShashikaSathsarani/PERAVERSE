@@ -1,3 +1,6 @@
+//This is the backend server for the knowledge base part of the chatbot
+//This helps our chatbot talk to the database and find answers
+
 /*
 ____________________________________________
 backend server for the Knowledge Base API, 
@@ -5,10 +8,11 @@ built using Node.js + Express + Supabase
 ____________________________________________
 */
 
-//***********************************************************************************
+
+//*****************************************************************************************************
 //Imports and setup
 
-//express - Web framework to create API endpoints (e.g., /query, /health)
+//express - Web framework to create API endpoints (e.g., /query, /health); builds the backend (server)
 const express = require('express');
 
 //cors - Allows our frontend (React, etc.) to connect safely from another port
@@ -20,19 +24,19 @@ const supabase = require('./db');
 //dotenv.config() - Loads environment variables (like ports, keys) from .env file
 require('dotenv').config();
 
-//***********************************************************************************
+//*****************************************************************************************************
 
 
-//----------------------------------------------
+//----------------------------------------------------------
 /*
 Initialize server
 Creates an Express app instance; 
 Uses the port from .env (like 8080). 
 If not found, it defaults to 8080
 */
-const app = express();
+const app = express(); //Makes a web server using Express
 const PORT = process.env.KB_API_PORT || 8080;
-//----------------------------------------------
+//----------------------------------------------------------
 
 
 
@@ -122,7 +126,8 @@ app.post('/api/knowledge-base/query', async (req, res) => {
 
 //-------------------------------------------------------------------------
 /**
- * GET /health
+ * GET /health - A simple test to see if the backend is running
+ * http://localhost:8080/health
  * Health check endpoint
  */
 //Used by frontend or server monitoring tools to check if API is online
@@ -149,4 +154,16 @@ app.listen(PORT, '127.0.0.1', () => {
 //Exports the Express app instance for testing or other use
 module.exports = app;
 
+/*
+1. Chatbot sends question - backend
+2. Backend reads it
+3. Backend searches Supabase (database)
+4. Finds matching info
+5. Sends answer back to chatbot
+6. Chatbot shows it to the user
+*/
 
+/*
+POST /api/knowledge-base/query - does the searching
+GET /health - checks if server is okay
+*/
