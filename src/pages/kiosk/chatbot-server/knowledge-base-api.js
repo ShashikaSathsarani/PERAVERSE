@@ -22,19 +22,43 @@ require('dotenv').config();
 
 //***********************************************************************************
 
+
+//----------------------------------------------
+/*
+Initialize server
+Creates an Express app instance; 
+Uses the port from .env (like 8080). 
+If not found, it defaults to 8080
+*/
 const app = express();
 const PORT = process.env.KB_API_PORT || 8080;
+//----------------------------------------------
 
-// Middleware
+
+
+//.................................................................................
+/*
+Middleware
+cors() - Enables requests from the frontend (prevents “CORS errors”)
+express.json() - Parses incoming JSON requests (like { "query": "something" })
+*/
 app.use(cors());
 app.use(express.json());
+//.................................................................................
 
+
+//_____________________________________________________________________
 /**
  * POST /api/knowledge-base/query
+ * This is the main endpoint used by our chatbot frontend
+ * When the chatbot sends a message, it calls this endpoint
  * Main endpoint used by chatbot - searches knowledge base by query
  */
 app.post('/api/knowledge-base/query', async (req, res) => {
+//_____________________________________________________________________
     try {
+        //Reads the user’s input from the request body
+        //If missing, returns a 400 (Bad Request) error
         const { query } = req.body;
 
         if (!query) {
@@ -44,12 +68,25 @@ app.post('/api/knowledge-base/query', async (req, res) => {
             });
         }
 
-        // Extract keywords from query
+        // Converts the query to lowercase
+        //Splits it into words
+        //Filters out short words (like “is”, “a”, “of”) to only keep meaningful ones
+        //ex: “How to reset password” - ["how", "reset", "password"]
         const keywords = query.toLowerCase()
             .split(' ')
             .filter(word => word.length > 2);
 
-        // Search database using keywords
+        //_______________________________________________________________________________________
+        /*
+        Search Supabase table
+                    Looks in the knowledge_base table
+                    Filters only active items (is_active = true)
+                    Uses .or() to match any keyword inside title or content (case-insensitive)
+        */
+
+        //ex: If keywords are “reset” and “password”, it checks;
+                //title contains “reset” or “password”
+                //content contains “reset” or “password”
         const { data, error } = await supabase
             .from('knowledge_base')
             .select('*')
@@ -59,7 +96,11 @@ app.post('/api/knowledge-base/query', async (req, res) => {
                     `title.ilike.%${keyword}%,content.ilike.%${keyword}%`
                 ).join(',')
             );
+        //_______________________________________________________________________________________
 
+
+        //If there’s an error, it goes to the catch block
+        //Otherwise, sends back all matching results to the frontend
         if (error) throw error;
 
         res.json({
@@ -67,6 +108,8 @@ app.post('/api/knowledge-base/query', async (req, res) => {
             count: data.length,
             data: data
         });
+
+    //If something goes wrong (ex: DB issue), it logs and returns an error message
     } catch (error) {
         console.error('Query error:', error);
         res.status(500).json({
@@ -76,10 +119,14 @@ app.post('/api/knowledge-base/query', async (req, res) => {
     }
 });
 
+
+//-------------------------------------------------------------------------
 /**
  * GET /health
  * Health check endpoint
  */
+//Used by frontend or server monitoring tools to check if API is online
+//Returns current timestamp and success message
 app.get('/health', (req, res) => {
     res.json({
         success: true,
@@ -87,14 +134,19 @@ app.get('/health', (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
+//-------------------------------------------------------------------------
+
 
 // Start server
+//Starts the server at http://localhost:8080
+//Prints logs in console confirming everything’s connected and running
 app.listen(PORT, '127.0.0.1', () => {
     console.log(`🤖 EngEx Knowledge Base API running on port ${PORT}`);
     console.log(`📊 Health check: http://localhost:${PORT}/health`);
     console.log(`✅ Connected to Supabase database`);
 });
 
+//Exports the Express app instance for testing or other use
 module.exports = app;
 
 
