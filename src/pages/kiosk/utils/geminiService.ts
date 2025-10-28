@@ -139,6 +139,13 @@ What would you like to know?`
       
       // Build enhanced prompt with database knowledge
       //This is the instruction block sent to Gemini AI
+      /**
+       * It includes:
+            * Context about the event (EngEx 2025)
+            * Strict rules (use only the database info)
+            * Response style guide (bullet points, emojis, full answers)
+            * he actual user question (prompt)
+       */
       const enhancedPrompt = `You are an AI assistant helping visitors at the Faculty of Engineering, University of Peradeniya.
 
 📍 IMPORTANT CONTEXT:
@@ -234,13 +241,28 @@ How can I help you with EngEx information? 🎓"
 Now answer this question using the knowledge base content above:
 User: ${prompt}`
 
+
+      /**
+       * Sends the enhancedPrompt to Gemini
+       * Waits for the AI’s reply
+       * Converts it to plain text
+       * If it’s empty-return a fallback message
+       */
       const result = await this.model.generateContent(enhancedPrompt)
       const response = await result.response
       const text = response.text()
       
       return text || this.getFallbackResponse()
+
+      /**
+       * If anything fails, it catches the error and shows helpful messages:
+       * Quota exceeded / rate limit - tells user service is busy
+       * Connection error - tells user to check internet or backend port
+       * Any other issue - generic fallback message
+       */
     } catch (error: unknown) {
       console.error('Gemini API error:', error)
+
       
       // Handle specific error types
       const errorMessage = error instanceof Error ? error.message : String(error)
@@ -257,14 +279,18 @@ User: ${prompt}`
     }
   }
 
+  //Used when Gemini or the database can’t be reached
+  //Instructs user to check server (port 8080) or connection
   private getFallbackResponse(): string {
   return 'I apologize, but I\'m unable to connect to the knowledge base at the moment. Please ensure:\n\n1. The API server is running (http://localhost:8080)\n2. Your internet connection is stable\n3. The Gemini API key is configured correctly\n\nIf the issue persists, please contact the event staff for assistance. Thank you for your understanding!'
   }
 
+  //Checks whether the Gemini API key is set correctly (so the app can warn developers if it’s missing)
   isApiKeyConfigured(): boolean {
     const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_API_KEY
     return apiKey && apiKey !== 'your_api_key_here'
   }
 }
 
+//Creates a single, ready-to-use instance of this class
 export const geminiService = new GeminiService()
