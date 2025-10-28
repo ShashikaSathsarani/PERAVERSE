@@ -1,7 +1,26 @@
+/*
+____________________________________________
+backend server for the Knowledge Base API, 
+built using Node.js + Express + Supabase
+____________________________________________
+*/
+
+//***********************************************************************************
+//Imports and setup
+
+//express - Web framework to create API endpoints (e.g., /query, /health)
 const express = require('express');
+
+//cors - Allows our frontend (React, etc.) to connect safely from another port
 const cors = require('cors');
+
+//supabase - Connects to our Supabase database (imported from db.js)
 const supabase = require('./db');
+
+//dotenv.config() - Loads environment variables (like ports, keys) from .env file
 require('dotenv').config();
+
+//***********************************************************************************
 
 const app = express();
 const PORT = process.env.KB_API_PORT || 8080;
